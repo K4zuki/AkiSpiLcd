@@ -1,11 +1,9 @@
-/*
-this is for SHARP LCD LS027B4DH01
+/** this is for SHARP LCD LS027B4DH01
 by Kazuki Yamamoto, or _K4ZUKI_
 */
 
 #ifndef __AKISPILCD_H__
 #define __AKISPILCD_H
-//#include "mbed.h"
 
 class AkiSpiLcd
 {

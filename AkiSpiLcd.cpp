@@ -1,5 +1,4 @@
-/*
-this is for SHARP LCD LS027B4DH01
+/** this is for SHARP LCD LS027B4DH01
 by Kazuki Yamamoto, or _K4ZUKI_
 */
 
