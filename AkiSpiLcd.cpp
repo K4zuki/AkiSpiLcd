@@ -1,5 +1,5 @@
 /** this is for SHARP LCD LS027B4DH01
-by Kazuki Yamamoto, or _K4ZUKI_
+* by Kazuki Yamamoto, or _K4ZUKI_
 */
 
 #include "mbed.h"

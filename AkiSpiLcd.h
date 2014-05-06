@@ -1,10 +1,37 @@
 /** this is for SHARP LCD LS027B4DH01
-by Kazuki Yamamoto, or _K4ZUKI_
+* by Kazuki Yamamoto, or _K4ZUKI_
 */
 
 #ifndef __AKISPILCD_H__
 #define __AKISPILCD_H
 
+/** AkiSpiLcd
+ * mbed library for SHARP LCD LS027B4DH01
+ *
+ * Example:
+ * @code
+ * #include "mbed.h"
+ * #include "AkiSpiLcd.h"
+ *
+ * AkiSpiLcd LCD(MOSI_, SCK_, D2, D5);
+ * extern const uint8_t hogepic[];
+ * int main()
+ * {
+ * 
+ *   wait_ms(1);
+ *   LCD.cls();
+ *   LCD.updateSingle(10,(uint8_t*)(hogepic+2000));
+ *   LCD.updateMulti(100,(240-100),(uint8_t*)(hogepic));
+ *
+ *   while(1) {
+ *       for(int i=0; i<240; i++) {
+ *           LCD.updateMulti(i,(240-i),(uint8_t*)(hogepic));
+ *           LCD.updateMulti(0,(i),(uint8_t*)(hogepic+50*(240-i)));
+ *       }
+ *   }
+ * }
+ * @endcode
+ */
 class AkiSpiLcd
 {
 public:
@@ -41,7 +68,7 @@ public:
     * @param disp true = display is on / false = display is off
     */
     void dispOn(bool disp);
-    
+
 private:
     int comflag;
     int modeflag;
