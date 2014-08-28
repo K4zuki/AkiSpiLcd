@@ -49,7 +49,6 @@ public:
     * @param cs HIGH-active chip enable input
     * @param disp HIGH-active display enable input
     */
-//    AkiSpiLcd(PinName mosi,PinName sck, PinName cs, PinName disp);
     AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr);
 
     /** Clear screen
