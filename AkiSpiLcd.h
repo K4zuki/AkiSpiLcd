@@ -90,7 +90,7 @@ public:
     
     /** copies whole data in screen into LCD
     */
-    void ram2lcd(int screen);
+    void ram2lcd(int startline, int length, int screen);
 
 //    /** Enables/disables display. internal memory will not flushed
 //    * @param disp true = display is on / false = display is off

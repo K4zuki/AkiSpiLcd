@@ -159,7 +159,11 @@ void AkiSpiLcd::dispOn(bool disp)
     */
 void AkiSpiLcd::ramReadSingle(int line, uint8_t* buffer, int screen){
     screen &=1;
-    screen<<=7;
+    if(screen==0){
+        screen=SCREEN0_BASE;
+    }else{
+        screen=SCREEN1_BASE;
+    }
 //    uint8_t buffer[50];
     line*=50;
     int address=screen+line;
@@ -181,7 +185,11 @@ void AkiSpiLcd::ramReadSingle(int line, uint8_t* buffer, int screen){
     */
 void AkiSpiLcd::ramReadMulti(int line, int length, uint8_t* buffer, int screen){
     screen &=1;
-    screen<<=7;
+    if(screen==0){
+        screen=SCREEN0_BASE;
+    }else{
+        screen=SCREEN1_BASE;
+    }
     line*=50;
     int address=screen+line;
 //    for(int j=0;j<length;j++){
@@ -206,7 +214,11 @@ void AkiSpiLcd::ramReadMulti(int line, int length, uint8_t* buffer, int screen){
     */
 void AkiSpiLcd::ramWriteSingle(int line, uint8_t* data, int screen){
     screen &=1;
-    screen<<=7;
+    if(screen==0){
+        screen=SCREEN0_BASE;
+    }else{
+        screen=SCREEN1_BASE;
+    }
     line*=50;
     int address=screen+line;
     _ram->write(address,data,50);
@@ -225,7 +237,11 @@ void AkiSpiLcd::ramWriteSingle(int line, uint8_t* data, int screen){
     */
 void AkiSpiLcd::ramWriteMulti(int line, int length, uint8_t* data, int screen){
     screen &=1;
-    screen<<=7;
+    if(screen==0){
+        screen=SCREEN0_BASE;
+    }else{
+        screen=SCREEN1_BASE;
+    }
     line*=50;
     
     int address=screen+line;
@@ -246,12 +262,17 @@ void AkiSpiLcd::ramWriteMulti(int line, int length, uint8_t* data, int screen){
 
     /** copies whole data in screen into LCD
     */
-void AkiSpiLcd::ram2lcd(int screen){
+void AkiSpiLcd::ram2lcd(int startline, int length, int screen){
     screen &=1;
-    screen<<=7;
+    if(screen==0){
+        screen=SCREEN0_BASE;
+    }else{
+        screen=SCREEN1_BASE;
+    }
+//    screen<<=7;
 
-    int address=screen;
-    uint8_t* dummy;
+    int address=screen+length*50;
+    uint8_t dummy[50];
     /*
     _csr=0; //select VRAM
     _spi.write(0x03);
@@ -261,10 +282,9 @@ void AkiSpiLcd::ram2lcd(int screen){
     for(int j=0;j<240;j++){
         _ram->write(RAMMODE_BASE,(modeflag << 7) | (comflag << 6) | (clearflag << 5));
         _csl=1;
-        _ram->read(RAMMODE_BASE,dummy,2);
-        for(int i=0;i<50;i++){
-            _ram->read(address,dummy,50);
-        }
+        _ram->read(RAMMODE_BASE);
+        _ram->read(RAMLINE_BASE+startline);
+        _ram->read(address+50*j,dummy,50);
         _ram->read(RAMMODE_BASE+2,dummy,2);
         wait_us(5);
         _csl=0;
