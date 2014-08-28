@@ -5,6 +5,8 @@
 #ifndef __AKISPILCD_H__
 #define __AKISPILCD_H
 
+#include "mbed.h"
+#include "Ser23K256.h"
 /** AkiSpiLcd
  * mbed library for SHARP LCD LS027B4DH01
  *
@@ -32,6 +34,11 @@
  * }
  * @endcode
  */
+#define RAMLINE_BASE 0x6000
+#define RAMMODE_BASE 0x6100
+#define SCREEN0_BASE 0x0000
+#define SCREEN1_BASE 0x3000
+ 
 class AkiSpiLcd
 {
 public:
@@ -92,6 +99,7 @@ public:
 //    void dispOn(bool disp);
 
 private:
+    Ser23K256::Ser23K256 *_ram;
     int comflag;
     int modeflag;
     int clearflag;
