@@ -37,12 +37,13 @@ class AkiSpiLcd
 public:
     /** Constructor
     * @param mosi SPI data input
+    * @param mosi SPI data output
     * @param sck SPI clock input
     * @param cs HIGH-active chip enable input
     * @param disp HIGH-active display enable input
     */
 //    AkiSpiLcd(PinName mosi,PinName sck, PinName cs, PinName disp);
-    AkiSpiLcd(PinName mosi,PinName sck, PinName csl, PinName csr);
+    AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr);
 
     /** Clear screen
     */
@@ -59,15 +60,31 @@ public:
     * @param length number of line to write
     * @param *data pointer to data
     */
-    void directUpdateMulti(int line, int length, uint8_t* data);
+    void directUpdateMulti(int startline, int length, uint8_t* data);
 
     /** Inverting internal COM signal
     */
     void cominvert();
     
-    /** Writes single line (400 bits = 50 bytes) into VRAM
-    
+    /** Reads single line (400 bits = 50 bytes) from a screen
     */
+    void ramReadSingle(int line, uint8_t* buffer, int screen);
+
+    /** Reads multi lines(400 x N bits = 50 x N bytes) from a screen
+    */
+    void ramReadMulti(int startline, int length, uint8_t* buffer, int screen);
+    
+    /** Writes single line (400 bits = 50 bytes) into a screen
+    */
+    void ramWriteSingle(int line, uint8_t* data, int screen);
+
+    /** Writes multi lines(400 x N bits = 50 x N bytes) into a screen
+    */
+    void ramWriteMulti(int startline, int length, uint8_t* data, int screen);
+    
+    /** copies whole data in screen into LCD
+    */
+    void ram2lcd(int screen);
 
 //    /** Enables/disables display. internal memory will not flushed
 //    * @param disp true = display is on / false = display is off
