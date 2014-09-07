@@ -6,7 +6,7 @@
 #define __AKISPILCD_H
 
 #include "mbed.h"
-#include "Ser23K256.h"
+//#include "Ser23K256.h"
 /** AkiSpiLcd
  * mbed library for SHARP LCD LS027B4DH01
  *
@@ -38,6 +38,8 @@
 #define RAMMODE_BASE 0x6100
 #define SCREEN0_BASE 0x0000
 #define SCREEN1_BASE 0x3000
+#define SCREEN0 0
+#define SCREEN1 1
  
 class AkiSpiLcd
 {
@@ -97,13 +99,42 @@ public:
 //    */
 //    void dispOn(bool disp);
 
+/** read a byte from SRAM
+* @param address    The address to read from
+* @return the uint8_tacter at that address
+*/
+    uint8_t ram_read(int address);
+/** read multiple bytes from SRAM into a buffer
+* @param address    The SRAM address to read from
+* @param buffer     The buffer to read into (must be big enough!)
+* @param count      The number of bytes to read
+*/
+    void ram_read(int address, uint8_t * buffer, int count);
+/** write a byte to SRAM
+* @param address    The address SRAM to write to
+* @param byte       The byte to write there
+*/
+    void ram_write(int address, uint8_t byte);
+    /** write multiple bytes to SRAM from a buffer
+* @param address    The SRAM address write to
+* @param buffer     The buffer to write from
+* @param count      The number of bytes to write
+*/
+    void ram_write(int address, uint8_t * buffer, int count);
+
 private:
-    Ser23K256::Ser23K256 *_ram;
+//    Ser23K256 _ram;
     int comflag;
     int modeflag;
     int clearflag;
     SPI _spi;
     DigitalOut _csl;
     DigitalOut _csr;
+
+    uint8_t ram_readStatus();
+    void ram_writeStatus(uint8_t status);
+    void ram_prepareCommand(uint8_t command, int address);
+    void ram_select();
+    void ram_deselect();
 };
 #endif
