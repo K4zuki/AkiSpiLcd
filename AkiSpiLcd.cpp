@@ -4,7 +4,7 @@
 
 #include "mbed.h"
 #include "AkiSpiLcd.h"
-#include "Ser23K256.h"
+//#include "Ser23K256.h"
 
 AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr)
     :_spi(mosi, miso, sck), _csl(csl), _csr(csr)
@@ -13,23 +13,24 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinNa
     _csl=0;
     _csr=1;
     _spi.format(8,0);
-    _spi.frequency(1000000);
+    _spi.frequency(10000000);
     comflag = modeflag = clearflag = 0;
-
-    int data=0;
+    
+    uint8_t data[240];
     for(int i=0; i<240; i++) {
-        data=( ( i & 0x01 ) << 7 )|
-             ( ( i & 0x02 ) << 5 )|
-             ( ( i & 0x04 ) << 3 )|
-             ( ( i & 0x08 ) << 1 )|
-             ( ( i & 0x10 ) >> 1 )|
-             ( ( i & 0x20 ) >> 3 )|
-             ( ( i & 0x40 ) >> 5 )|
-             ( ( i & 0x80 ) >> 7 );
+        data[i]=( ( (i+1) & 0x01 ) << 7 )|
+             ( ( (i+1) & 0x02 ) << 5 )|
+             ( ( (i+1) & 0x04 ) << 3 )|
+             ( ( (i+1) & 0x08 ) << 1 )|
+             ( ( (i+1) & 0x10 ) >> 1 )|
+             ( ( (i+1) & 0x20 ) >> 3 )|
+             ( ( (i+1) & 0x40 ) >> 5 )|
+             ( ( (i+1) & 0x80 ) >> 7 );
 
-        ram_write(RAMLINE_BASE+i,(uint8_t)data);
     }
-    ram_write(RAMMODE_BASE,0x00000000,4);
+    ram_write(RAMLINE_BASE,data,240);
+    uint8_t buffer[4] = {0,0,0,0};
+    ram_write(RAMMODE_BASE,buffer,4);
 
 }
 
@@ -101,14 +102,14 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t* data)
         for (int j=0; j<length; j++) {
             _spi.write( (modeflag << 7) | (comflag << 6) | (clearflag << 5) );
             _spi.write(
-                ( ( (line) & 0x01 ) << 7 )|
-                ( ( (line) & 0x02 ) << 5 )|
-                ( ( (line) & 0x04 ) << 3 )|
-                ( ( (line) & 0x08 ) << 1 )|
-                ( ( (line) & 0x10 ) >> 1 )|
-                ( ( (line) & 0x20 ) >> 3 )|
-                ( ( (line) & 0x40 ) >> 5 )|
-                ( ( (line) & 0x80 ) >> 7 )
+                ( ( (line+1) & 0x01 ) << 7 )|
+                ( ( (line+1) & 0x02 ) << 5 )|
+                ( ( (line+1) & 0x04 ) << 3 )|
+                ( ( (line+1) & 0x08 ) << 1 )|
+                ( ( (line+1) & 0x10 ) >> 1 )|
+                ( ( (line+1) & 0x20 ) >> 3 )|
+                ( ( (line+1) & 0x40 ) >> 5 )|
+                ( ( (line+1) & 0x80 ) >> 7 )
             );
 
             for(int i=0; i<50; i++) {
