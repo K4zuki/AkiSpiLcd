@@ -5,6 +5,7 @@
 #include "mbed.h"
 #include "AkiSpiLcd.h"
 //#include "Ser23K256.h"
+extern const uint8_t lcd_line[];
 
 AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr)
     :_spi(mosi, miso, sck), _csl(csl), _csr(csr)
@@ -18,7 +19,8 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinNa
     
     uint8_t data[240];
     for(int i=0; i<240; i++) {
-        data[i]=( ( (i+1) & 0x01 ) << 7 )|
+        data[i]=(uint8_t)lcd_line[i];
+        /*( ( (i+1) & 0x01 ) << 7 )|
              ( ( (i+1) & 0x02 ) << 5 )|
              ( ( (i+1) & 0x04 ) << 3 )|
              ( ( (i+1) & 0x08 ) << 1 )|
@@ -26,7 +28,7 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinNa
              ( ( (i+1) & 0x20 ) >> 3 )|
              ( ( (i+1) & 0x40 ) >> 5 )|
              ( ( (i+1) & 0x80 ) >> 7 );
-
+*/
     }
     ram_write(RAMLINE_BASE,data,240);
     uint8_t buffer[4] = {0,0,0,0};
@@ -61,10 +63,11 @@ void AkiSpiLcd::directUpdateSingle(int line, uint8_t* data)
     clearflag=0;
 
     _csl=1;
-    wait_us(5);
+    wait_us(1);
 
     _spi.write( (modeflag << 7) | (comflag << 6) | (clearflag << 5) );
-
+_spi.write((uint8_t)lcd_line[line]);
+/*
     _spi.write(
         ( ( (line+1) & 0x01 ) << 7 )|
         ( ( (line+1) & 0x02 ) << 5 )|
@@ -74,7 +77,8 @@ void AkiSpiLcd::directUpdateSingle(int line, uint8_t* data)
         ( ( (line+1) & 0x20 ) >> 3 )|
         ( ( (line+1) & 0x40 ) >> 5 )|
         ( ( (line+1) & 0x80 ) >> 7 )
-    );
+    );*/
+    
     for(int i=0; i<50; i++) {
         _spi.write( *(data+i) );
     }
@@ -101,7 +105,8 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t* data)
         wait_us(5);
         for (int j=0; j<length; j++) {
             _spi.write( (modeflag << 7) | (comflag << 6) | (clearflag << 5) );
-            _spi.write(
+            _spi.write((uint8_t)lcd_line[line]);
+/*            _spi.write(
                 ( ( (line+1) & 0x01 ) << 7 )|
                 ( ( (line+1) & 0x02 ) << 5 )|
                 ( ( (line+1) & 0x04 ) << 3 )|
@@ -111,7 +116,7 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t* data)
                 ( ( (line+1) & 0x40 ) >> 5 )|
                 ( ( (line+1) & 0x80 ) >> 7 )
             );
-
+*/
             for(int i=0; i<50; i++) {
                 _spi.write( *(data+(50*j+i)) );//hogepic[50*j+i]
             }
