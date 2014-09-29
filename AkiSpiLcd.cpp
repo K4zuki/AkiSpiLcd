@@ -16,7 +16,7 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinNa
     _spi.format(8,0);
     _spi.frequency(10000000);
     comflag = modeflag = clearflag = 0;
-    
+
     uint8_t data[240];
     for(int i=0; i<240; i++) {
         data[i]=(uint8_t)lcd_line[i];
@@ -28,7 +28,7 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinNa
              ( ( (i+1) & 0x20 ) >> 3 )|
              ( ( (i+1) & 0x40 ) >> 5 )|
              ( ( (i+1) & 0x80 ) >> 7 );
-*/
+        */
     }
     ram_write(RAMLINE_BASE,data,240);
     uint8_t buffer[4] = {0,0,0,0};
@@ -57,6 +57,25 @@ void AkiSpiLcd::cls()
     }
 }
 
+void AkiSpiLcd::cls_ram( int screen )
+{
+    screen &=1;
+    if(screen==SCREEN0) {
+        screen=SCREEN0_BASE;
+    } else {
+        screen=SCREEN1_BASE;
+    }
+
+    ram_writeStatus(SEQUENTIAL_MODE);
+    ram_prepareCommand(WRITE, screen);
+    for (int i = 0; i < (50*240); i++) {
+        _spi.write(0x00);
+    }
+    ram_deselect();
+    ram_writeStatus(BYTE_MODE);
+}
+
+
 void AkiSpiLcd::directUpdateSingle(int line, uint8_t* data)
 {
     modeflag=1;
@@ -66,19 +85,19 @@ void AkiSpiLcd::directUpdateSingle(int line, uint8_t* data)
     wait_us(1);
 
     _spi.write( (modeflag << 7) | (comflag << 6) | (clearflag << 5) );
-_spi.write((uint8_t)lcd_line[line]);
-/*
-    _spi.write(
-        ( ( (line+1) & 0x01 ) << 7 )|
-        ( ( (line+1) & 0x02 ) << 5 )|
-        ( ( (line+1) & 0x04 ) << 3 )|
-        ( ( (line+1) & 0x08 ) << 1 )|
-        ( ( (line+1) & 0x10 ) >> 1 )|
-        ( ( (line+1) & 0x20 ) >> 3 )|
-        ( ( (line+1) & 0x40 ) >> 5 )|
-        ( ( (line+1) & 0x80 ) >> 7 )
-    );*/
-    
+    _spi.write((uint8_t)lcd_line[line]);
+    /*
+        _spi.write(
+            ( ( (line+1) & 0x01 ) << 7 )|
+            ( ( (line+1) & 0x02 ) << 5 )|
+            ( ( (line+1) & 0x04 ) << 3 )|
+            ( ( (line+1) & 0x08 ) << 1 )|
+            ( ( (line+1) & 0x10 ) >> 1 )|
+            ( ( (line+1) & 0x20 ) >> 3 )|
+            ( ( (line+1) & 0x40 ) >> 5 )|
+            ( ( (line+1) & 0x80 ) >> 7 )
+        );*/
+
     for(int i=0; i<50; i++) {
         _spi.write( *(data+i) );
     }
@@ -106,17 +125,17 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t* data)
         for (int j=0; j<length; j++) {
             _spi.write( (modeflag << 7) | (comflag << 6) | (clearflag << 5) );
             _spi.write((uint8_t)lcd_line[line]);
-/*            _spi.write(
-                ( ( (line+1) & 0x01 ) << 7 )|
-                ( ( (line+1) & 0x02 ) << 5 )|
-                ( ( (line+1) & 0x04 ) << 3 )|
-                ( ( (line+1) & 0x08 ) << 1 )|
-                ( ( (line+1) & 0x10 ) >> 1 )|
-                ( ( (line+1) & 0x20 ) >> 3 )|
-                ( ( (line+1) & 0x40 ) >> 5 )|
-                ( ( (line+1) & 0x80 ) >> 7 )
-            );
-*/
+            /*            _spi.write(
+                            ( ( (line+1) & 0x01 ) << 7 )|
+                            ( ( (line+1) & 0x02 ) << 5 )|
+                            ( ( (line+1) & 0x04 ) << 3 )|
+                            ( ( (line+1) & 0x08 ) << 1 )|
+                            ( ( (line+1) & 0x10 ) >> 1 )|
+                            ( ( (line+1) & 0x20 ) >> 3 )|
+                            ( ( (line+1) & 0x40 ) >> 5 )|
+                            ( ( (line+1) & 0x80 ) >> 7 )
+                        );
+            */
             for(int i=0; i<50; i++) {
                 _spi.write( *(data+(50*j+i)) );//hogepic[50*j+i]
             }

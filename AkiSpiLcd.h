@@ -97,6 +97,10 @@ public:
     */
     void cls();
 
+    /** Clear screen(RAM)
+    */
+    void cls_ram( int screen);
+    
     /** Writes single line(400 bits = 50 bytes)
     * @param line line number(1-240)
     * @param *data pointer to data
