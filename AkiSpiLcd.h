@@ -148,9 +148,16 @@ public:
     void ramWriteMultiLine(int startline, int length, uint8_t* data, int screen);
 
     /** copies whole data in screen into LCD
+    * @param startline starting line number(1-240)
+    * @param length number of line to read
     * @param screen screen to copy (0 or 1)
     */
     void ram2lcd(int startline, int length, int screen);
+
+    /** copies whole data in screen into LCD
+    * @param screen screen to copy (0 or 1)
+    */
+    void ram2lcd(int screen);
 
     /** read a byte from SRAM (copied from Ser23K256)
     * @param address    The address to read from

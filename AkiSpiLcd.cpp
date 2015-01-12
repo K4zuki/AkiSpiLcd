@@ -254,6 +254,16 @@ _spi.format(8,0);
     cominvert();
 }
 
+/** copies whole data in screen into LCD
+*/
+void AkiSpiLcd::ram2lcd(int screen)
+{
+    uint8_t lineBuffer[RAMLINE_LENGTH];
+    for (int y = 0; y < 240; y++) {
+        ram_read(y * RAMLINE_LENGTH+2,lineBuffer,RAMLINE_LENGTH);
+        directUpdateSingle(y + 1,lineBuffer);
+    }
+}
 uint8_t AkiSpiLcd::ram_read(int address)
 {
     _ram_prepareCommand(READ, address);
