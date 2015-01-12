@@ -13,7 +13,7 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinNa
     _csl=0;
     _csr=1;
     _spi.format(8,0);
-    _spi.frequency(5000000);
+    _spi.frequency(10000000);
     _comflag = _modeflag = _clearflag = 0;
 
 //    if(_csr != NULL) {
@@ -117,7 +117,7 @@ void AkiSpiLcd::cominvert()
 
     _spi.write( (_modeflag << 7) | (_comflag << 6) | (_clearflag << 5) );
     _spi.write(0x00);
-    wait_us(5);
+//    wait_us(5);
     _csl=0;
     if(_comflag == 0) {
         _comflag = 1;
@@ -223,28 +223,34 @@ void AkiSpiLcd::ram2lcd(int startline, int length, int screen)
 
         int address=screen+startline*RAMLINE_LENGTH;
 //    uint8_t dummy[RAMLINE_LENGTH+2];
-        uint8_t dummy=0;
+        int dummy=0;
 
         _ram_writeStatus(SEQUENTIAL_MODE);
         _ram_prepareCommand(READ,address);
+_spi.format(16,0);
         _csl=1;
+//wait_us(5);
+        
         for(int j = 0; j <= length; j++) {
 //        _csl=1;
             for(int k = 0; k < RAMLINE_LENGTH; k+=4) {
-                dummy = _spi.write(0x55);
-                dummy = _spi.write(0xde);
-                dummy = _spi.write(0xad);
+                dummy = _spi.write(0x55de);
+//                dummy = _spi.write(0xde);
+                dummy = _spi.write(0xadaa);
 //            dummy = _spi.write(0xbe);
 //            dummy = _spi.write(0xaf);
-                dummy = _spi.write(0xaa);
+//                dummy = _spi.write(0xaa);
             }
 //        _csl = 0;
         }
     }
+    _spi.write(0xdead);
+//wait_us(5);
     _csl = 0;
 //    _spi.write(0xde);
 //    _spi.write(0xad);
     _ram_deselect();
+_spi.format(8,0);
     cominvert();
 }
 
