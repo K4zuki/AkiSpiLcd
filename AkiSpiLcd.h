@@ -70,8 +70,8 @@ public:
     */
     enum BASE_ADDR {
         SCREEN0_BASE = 0x0000,
-        SCREEN1_BASE = 0x3000,
-        RAMLINE_BASE = 0x6000,
+        SCREEN1_BASE = 0x4000,
+//        RAMLINE_BASE = 0x7000,
     };
 
     /** Constructor

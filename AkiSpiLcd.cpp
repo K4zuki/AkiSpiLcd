@@ -277,7 +277,8 @@ void AkiSpiLcd::ram_read(int address, uint8_t * buffer, int count)
     _ram_writeStatus(SEQUENTIAL_MODE);
     _ram_prepareCommand(READ, address);
     for (int i = 0; i < count; i++) {
-        buffer[i] = _spi.write(0);
+        buffer[i] = _spi.write(0x00);
+
     }
     _ram_deselect();
     _ram_writeStatus(BYTE_MODE);
