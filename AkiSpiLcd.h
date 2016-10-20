@@ -78,6 +78,18 @@ public:
     //        RAMLINE_BASE = 0x7000,
   };
 
+  enum LCD_MODE {
+    COM_INVERT = 0xA0,
+    CLEAR_SCREEN = 0x20,
+    UPDATE_MONO = 0x88,
+    UPDATE_3COLOR = 0x80,
+    UPDATE_4COLOR = 0x90,
+    BLINK_BLACK = 0x10,
+    BLINK_WHITE = 0x18,
+    BLINK_INVERT = 0x14,
+    BLINK_STOP = NOP,
+  };
+
   /** Constructor
   * @param mosi SPI data output from mbed
   * @param mosi SPI data input from slave
@@ -87,9 +99,26 @@ public:
   */
   AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr);
 
+  // AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName
+  // disp);
+  // AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName
+  // csr,
+  //           PinName disp);
+
   /** Clear screen
   */
   void cls();
+
+  /** Update coloring setting
+  * @param color 0 for 4bit color mode(4bits/dot), 1 for monochrome
+  * mode(1bit/dot)
+  */
+  void set_color(int color);
+
+  /** Gets current coloring setting
+  * @return 0 for 4bit color mode(4bits/dot), 1 for monochrome mode(1bit/dot)
+  */
+  int get_color(void);
 
   /** Clear screen of SRAM
   * @param screen screen number (0 or 1)
@@ -193,9 +222,9 @@ public:
 private:
   //    Ser23K256 _ram;
 
-  enum MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
+  enum RAM_MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
 
-  enum COMMAND {
+  enum RAM_COMMAND {
     READ = 0x03,
     WRITE = 0x02,
     READ_STATUS = 0x05, // called RDSR in datasheet
@@ -203,6 +232,7 @@ private:
   };
 
   int _comflag;
+  int _colorflag;
   int _modeflag;
   int _clearflag;
   SPI _spi;

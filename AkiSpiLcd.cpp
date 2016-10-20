@@ -4,7 +4,7 @@
 
 #include "AkiSpiLcd.h"
 #include "mbed.h"
-// #include "Ser23K256.h"
+
 extern const uint8_t lcd_line[];
 
 AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl,
@@ -14,17 +14,21 @@ AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl,
   _csr = 1;
   _spi.format(8, 0);
   _spi.frequency(10000000);
-  _comflag = _modeflag = _clearflag = 0;
+
+  _colorflag = 0;
+  _comflag = 0;
+  _modeflag = 0;
+  _colorflag = UPDATE_4COLOR;
 }
 
 void AkiSpiLcd::cls() {
   _modeflag = 0;
   _clearflag = 1;
-
   _csl = 1;
   wait_us(5);
 
-  _spi.write((_modeflag << 7) | (_comflag << 6) | (_clearflag << 5));
+  // _spi.write((_modeflag << 7) | (_comflag << 6) | (_clearflag << 5));
+  _spi.write(CLEAR_SCREEN | (_comflag << 6));
   _spi.write(0x00);
 
   wait_us(5);
@@ -32,6 +36,15 @@ void AkiSpiLcd::cls() {
 
   cominvert();
 }
+
+void AkiSpiLcd::set_color(int color) {
+  if ((color & 1) == 1) {
+    _colorflag = UPDATE_MONO;
+  } else {
+    _colorflag = UPDATE_4COLOR;
+  }
+}
+int AkiSpiLcd::get_color(void) { return (_colorflag >> 4) & 0x01; }
 
 void AkiSpiLcd::cls_ram(int screen) {
   screen &= 1;
@@ -81,7 +94,7 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {
       _spi.write((_modeflag << 7) | (_comflag << 6) | (_clearflag << 5));
       _spi.write((uint8_t)lcd_line[line]);
       for (int i = 0; i < 50; i++) {
-        _spi.write(*(data + (50 * j + i))); // hogepic[50*j+i]
+        _spi.write(*(data + (50 * j + i)));
       }
       line += 1;
     }
@@ -96,10 +109,10 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {
 void AkiSpiLcd::cominvert() {
   _modeflag = 0;
   _clearflag = 0;
-
   _csl = 1;
 
-  _spi.write((_modeflag << 7) | (_comflag << 6) | (_clearflag << 5));
+  // _spi.write((_modeflag << 7) | (_comflag << 6) | (_clearflag << 5));
+  _spi.write(COM_INVERT | (_comflag << 6));
   _spi.write(0x00);
   //    wait_us(5);
   _csl = 0;
@@ -192,6 +205,7 @@ void AkiSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data,
 void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {
   _modeflag = 1;
   _clearflag = 0;
+  // UPDATE_MONO
   screen &= 1;
   if (screen == SCREEN0) {
     screen = SCREEN0_BASE;
@@ -202,7 +216,6 @@ void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {
     startline = 1;
 
   if (length > 0) {
-
     int address = screen + startline * RAMLINE_LENGTH;
     //    uint8_t dummy[RAMLINE_LENGTH+2];
     int dummy = 0;
