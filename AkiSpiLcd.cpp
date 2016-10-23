@@ -3,7 +3,8 @@
 */
 
 #include "AkiSpiLcd.h"
-#include "mbed.h"
+
+#include "mbed.h"  //NOLINT
 
 extern const uint8_t lcd_line[];
 
@@ -62,8 +63,7 @@ void AkiSpiLcd::directUpdateSingle(int line, uint8_t *data) {
   _csl = 1;
   wait_us(1);
 
-  if (line == 0)
-    line = 1;
+  if (line == 0) line = 1;
 
   _spi.write((_modeflag << 7) | (_comflag << 6) | (_clearflag << 5));
   _spi.write((uint8_t)lcd_line[line]);
@@ -84,8 +84,7 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {
   _modeflag = 1;
   _clearflag = 0;
 
-  if (line == 0)
-    line = 1;
+  if (line == 0) line = 1;
 
   if (length > 0) {
     _csl = 1;
@@ -212,8 +211,7 @@ void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {
   } else {
     screen = SCREEN1_BASE;
   }
-  if (startline == 0)
-    startline = 1;
+  if (startline == 0) startline = 1;
 
   if (length > 0) {
     int address = screen + startline * RAMLINE_LENGTH;

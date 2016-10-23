@@ -2,10 +2,10 @@
 * by Kazuki Yamamoto, or _K4ZUKI_
 */
 
-#ifndef __AKISPILCD_H__
-#define __AKISPILCD_H__
+#ifndef __AKISPILCD_H__  // NOLINT
+#define __AKISPILCD_H__  // NOLINT
 
-#include "mbed.h"
+#include "mbed.h"  //NOLINT
 
 /** \class AkiSpiLcd
  * \brief mbed library for SHARP LCD LS027B4DH01
@@ -65,7 +65,7 @@ const uint8_t lcd_line[256] = {
 };
 
 class AkiSpiLcd {
-public:
+ public:
   /** \enum BASE_ADDR
       \brief base address list for 23K256
       @param SCREEN0_BASE = 0x0000,
@@ -219,7 +219,7 @@ public:
   */
   void ram_write(int address, uint8_t *buffer, int count);
 
-private:
+ private:
   //    Ser23K256 _ram;
 
   enum RAM_MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
@@ -227,8 +227,8 @@ private:
   enum RAM_COMMAND {
     READ = 0x03,
     WRITE = 0x02,
-    READ_STATUS = 0x05, // called RDSR in datasheet
-    WRITE_STATUS = 0x01 // called WRSR in datasheet
+    READ_STATUS = 0x05,  // called RDSR in datasheet
+    WRITE_STATUS = 0x01  // called WRSR in datasheet
   };
 
   int _comflag;
@@ -246,4 +246,4 @@ private:
   void _ram_select();
   void _ram_deselect();
 };
-#endif
+#endif  // NOLINT
