@@ -1,5 +1,4 @@
-/*
-Copyright (c) 2016 Kazuki Yamamoto <k.yamamoto.08136891@gmail.com>
+/* Copyright (c) 2016 Kazuki Yamamoto <k.yamamoto.08136891@gmail.com>
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files
 (the "Software"), to deal in the Software without restriction,
@@ -21,11 +20,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 * by Kazuki Yamamoto, or _K4ZUKI_
 */
 
-#ifndef __AKISPILCD_H__
+#ifndef __AKISPILCD_H__  // NOLINT
 #define __AKISPILCD_H__
 
-#include "mbed.h"
-
+#include "MemoryLcd.h"
+#include "mbed.h"  //NOLINT
 /** \class AkiSpiLcd
  * \brief mbed library for SHARP LCD LS027B4DH01
  *
@@ -83,8 +82,15 @@ const uint8_t lcd_line[256] = {
     0x0F,
 };
 
+class AkiLCD_MODE : public LCD_MODE {
+ public:
+  static const uint8_t COM_INVERT = 0x00;
+  static const uint8_t CLEAR_SCREEN = 0x20;
+  static const uint8_t UPDATE = 0x80;
+};
+
 class AkiSpiLcd {
-public:
+ public:
   /** \enum BASE_ADDR
       \brief base address list for 23K256
       @param SCREEN0_BASE = 0x0000,
@@ -94,7 +100,6 @@ public:
   enum BASE_ADDR {
     SCREEN0_BASE = 0x0000,
     SCREEN1_BASE = 0x4000,
-    //        RAMLINE_BASE = 0x7000,
   };
 
   /** Constructor
@@ -209,7 +214,7 @@ public:
   */
   void ram_write(int address, uint8_t *buffer, int count);
 
-private:
+ private:
   //    Ser23K256 _ram;
 
   enum MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
@@ -217,13 +222,11 @@ private:
   enum COMMAND {
     READ = 0x03,
     WRITE = 0x02,
-    READ_STATUS = 0x05, // called RDSR in datasheet
-    WRITE_STATUS = 0x01 // called WRSR in datasheet
+    READ_STATUS = 0x05,  // called RDSR in datasheet
+    WRITE_STATUS = 0x01  // called WRSR in datasheet
   };
 
   int _comflag;
-  int _modeflag;
-  int _clearflag;
   SPI _spi;
   DigitalOut _csl;
   DigitalOut _csr;
@@ -235,4 +238,4 @@ private:
   void _ram_select();
   void _ram_deselect();
 };
-#endif
+#endif  // NOLINT
