@@ -1,3 +1,21 @@
+/* Copyright (c) 2016 Kazuki Yamamoto <k.yamamoto.08136891@gmail.com>
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 /** this is for SHARP LCD LS027B4DH01
 * by Kazuki Yamamoto, or _K4ZUKI_
 */
@@ -5,8 +23,8 @@
 #ifndef __AKISPILCD_H__  // NOLINT
 #define __AKISPILCD_H__  // NOLINT
 
+#include "MemoryLcd.h"
 #include "mbed.h"  //NOLINT
-
 /** \class AkiSpiLcd
  * \brief mbed library for SHARP LCD LS027B4DH01
  *
@@ -64,6 +82,13 @@ const uint8_t lcd_line[256] = {
     0x0F,
 };
 
+class AkiLCD_MODE : public LCD_MODE {
+ public:
+  static const uint8_t COM_INVERT = 0x00;
+  static const uint8_t CLEAR_SCREEN = 0x20;
+  static const uint8_t UPDATE = 0x80;
+};
+
 class AkiSpiLcd {
  public:
   /** \enum BASE_ADDR
@@ -75,7 +100,6 @@ class AkiSpiLcd {
   enum BASE_ADDR {
     SCREEN0_BASE = 0x0000,
     SCREEN1_BASE = 0x4000,
-    //        RAMLINE_BASE = 0x7000,
   };
 
   enum LCD_MODE {
@@ -233,8 +257,6 @@ class AkiSpiLcd {
 
   int _comflag;
   int _colorflag;
-  int _modeflag;
-  int _clearflag;
   SPI _spi;
   DigitalOut _csl;
   DigitalOut _csr;
