@@ -179,7 +179,7 @@ void AkiSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data,
     }
     line++;
   }
-  _ram_deselect();
+  _csr = 1;
   _ram_writeStatus(BYTE_MODE);
   //    _mem.writeaddress,data,50*length);
 }
@@ -213,7 +213,7 @@ void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {
   }
   _spi.write(0xdead);
   _csl = 0;
-  _ram_deselect();
+  _csr = 1;
   _spi.format(8, 0);
   cominvert();
 }
@@ -227,64 +227,20 @@ void AkiSpiLcd::ram2lcd(int screen) {
     directUpdateSingle(y + 1, lineBuffer);
   }
 }
-// uint8_t AkiSpiLcd::ram_read(int address) {
-//   _ram_prepareCommand(READ, address);
-//   int result = _spi.write(0);
-//   _ram_deselect();
-//   return (uint8_t)result;
-// }
-//
-// void AkiSpiLcd::ram_read(int address, uint8_t *buffer, int count) {
-//   _ram_writeStatus(SEQUENTIAL_MODE);
-//   _ram_prepareCommand(READ, address);
-//   for (int i = 0; i < count; i++) {
-//     buffer[i] = _spi.write(0x00);
-//   }
-//   _ram_deselect();
-//   _ram_writeStatus(BYTE_MODE);
-// }
-
-// void AkiSpiLcd::ram_write(int address, uint8_t byte) {
-//   _ram_prepareCommand(WRITE, address);
-//   _spi.write(byte);
-//   _ram_deselect();
-// }
-//
-// void AkiSpiLcd::ram_write(int address, uint8_t *buffer, int count) {
-//   _ram_writeStatus(SEQUENTIAL_MODE);
-//   _ram_prepareCommand(WRITE, address);
-//   for (int i = 0; i < count; i++) {
-//     _spi.write(buffer[i]);
-//   }
-//   _ram_deselect();
-//   _ram_writeStatus(BYTE_MODE);
-// }
-
-// uint8_t AkiSpiLcd::ram_readStatus() {
-//   _ram_select();
-//   _spi.write(READ_STATUS);
-//   uint8_t result = (uint8_t)_spi.write(0);
-//   _ram_deselect();
-//   return result;
-// }
 
 void AkiSpiLcd::_ram_writeStatus(uint8_t status) {
-  _ram_select();
+  _csr = 0;
   _spi.write(WRITE_STATUS);
   _spi.write(status);
-  _ram_deselect();
+  _csr = 1;
 }
 
 void AkiSpiLcd::_ram_prepareCommand(uint8_t command, int address) {
-  _ram_select();
+  _csr = 0;
   _spi.write(command);
   _spi.write(address >> 8);
   _spi.write(address & 0xFF);
 }
-
-void AkiSpiLcd::_ram_select() { _csr = 0; }
-
-void AkiSpiLcd::_ram_deselect() { _csr = 1; }
 
 void AkiSpiLcd::_cls_ram(int address) {
   _ram_writeStatus(SEQUENTIAL_MODE);
@@ -296,6 +252,6 @@ void AkiSpiLcd::_cls_ram(int address) {
       _spi.write(0x00);
     }
   }
-  _ram_deselect();
+  _csr = 1;
   _ram_writeStatus(BYTE_MODE);
 }
