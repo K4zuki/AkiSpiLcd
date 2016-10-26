@@ -67,12 +67,17 @@ void AkiSpiLcd::cls_ram(int screen) {
   }
 }
 
+uint8_t AkiSpiLcd::_generate_line(int line) {
+  return lcd_line[line];
+  // return line;
+}
+
 void AkiSpiLcd::directUpdateSingle(int line, uint8_t *data) {
   _csl = 1;
   if (line == 0) line = 1;
 
   _spi.write(AkiLCD_MODE::UPDATE | (_comflag << 6));
-  _spi.write((uint8_t)lcd_line[line]);
+  _spi.write(_generate_line(line));
 
   for (int i = 0; i < 50; i++) {
     _spi.write(*(data + i));
@@ -93,7 +98,7 @@ void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {
 
     for (int j = 1; j <= length; j++) {
       _spi.write(AkiLCD_MODE::UPDATE | (_comflag << 6));
-      _spi.write((uint8_t)lcd_line[line]);
+      _spi.write(_generate_line(line));
       for (int i = 0; i < 50; i++) {
         _spi.write(*(data + (50 * j + i)));
       }
@@ -184,7 +189,7 @@ void AkiSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data,
   _ram_prepareCommand(WRITE, address);
   for (int i = 0; i < length; i++) {
     _spi.write(AkiLCD_MODE::UPDATE | (_comflag << 6));
-    _spi.write((uint8_t)lcd_line[line]);
+    _spi.write(_generate_line(line));
     for (int j = 0; j < LINE_LENGTH; j++) {
       _spi.write(*data);
       data++;
@@ -314,7 +319,7 @@ void AkiSpiLcd::_cls_ram(int address) {
   _ram_prepareCommand(WRITE, address);
   for (int i = 1; i <= (240); i++) {
     _spi.write(AkiLCD_MODE::UPDATE | (_comflag << 6));
-    _spi.write((uint8_t)lcd_line[i]);
+    _spi.write(_generate_line(i));
     for (int j = 0; j < 50; j++) {
       _spi.write(0x00);
     }

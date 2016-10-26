@@ -261,6 +261,7 @@ class AkiSpiLcd {
   DigitalOut _csl;
   DigitalOut _csr;
 
+  uint8_t _generate_line(int line);
   void _cls_ram(int address);
   uint8_t ram_readStatus();
   void _ram_writeStatus(uint8_t status);
