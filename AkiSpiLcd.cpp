@@ -151,7 +151,7 @@ void AkiSpiLcd::ramWriteSingleLine(int line, uint8_t *data, int screen) {
   line--;
   line *= RAMLINE_LENGTH;
   int address = screen + line;
-  _mem.writeaddress, data, 50);
+  _mem.write(address, data, 50);
 }
 
 /** Writes multi lines(400 x N bits = 50 x N bytes) into a screen
