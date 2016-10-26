@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define __AKISPILCD_H__  // NOLINT
 
 #include "MemoryLcd.h"
+#include "Ser23K256.h"
 #include "mbed.h"  //NOLINT
 /** \class AkiSpiLcd
  * \brief mbed library for SHARP LCD LS027B4DH01
@@ -258,6 +259,7 @@ class AkiSpiLcd {
   int _comflag;
   int _colorflag;
   SPI _spi;
+  Ser23K256 _mem;
   DigitalOut _csl;
   DigitalOut _csr;
 
