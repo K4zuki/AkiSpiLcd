@@ -245,16 +245,16 @@ class AkiSpiLcd {
   void ram_write(int address, uint8_t *buffer, int count);
 
  private:
-  //    Ser23K256 _ram;
+  // Ser23K256 _ram;
 
-  enum RAM_MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
+  // enum RAM_MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
 
-  enum RAM_COMMAND {
-    READ = 0x03,
-    WRITE = 0x02,
-    READ_STATUS = 0x05,  // called RDSR in datasheet
-    WRITE_STATUS = 0x01  // called WRSR in datasheet
-  };
+  // enum RAM_COMMAND {
+  //   READ = 0x03,
+  //   WRITE = 0x02,
+  //   READ_STATUS = 0x05,  // called RDSR in datasheet
+  //   WRITE_STATUS = 0x01  // called WRSR in datasheet
+  // };
 
   int _comflag;
   int _colorflag;
@@ -267,7 +267,5 @@ class AkiSpiLcd {
   uint8_t ram_readStatus();
   void _ram_writeStatus(uint8_t status);
   void _ram_prepareCommand(uint8_t command, int address);
-  void _ram_select();
-  void _ram_deselect();
 };
 #endif  // NOLINT
