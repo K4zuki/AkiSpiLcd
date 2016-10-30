@@ -85,9 +85,9 @@ const uint8_t lcd_line[256] = {
 
 class AkiLCD_MODE : public LCD_MODE {
  public:
-  static const uint8_t COM_INVERT = 0x00;
-  static const uint8_t CLEAR_SCREEN = 0x20;
-  static const uint8_t UPDATE = 0x80;
+  static const uint8_t COM_INVERT = 0x00;    // 0-X-0-XXXXX
+  static const uint8_t CLEAR_SCREEN = 0x20;  // 0-X-1-XXXXX
+  static const uint8_t UPDATE = 0x80;        // 1-X-0-XXXXX
 };
 
 class AkiSpiLcd {
@@ -104,15 +104,15 @@ class AkiSpiLcd {
   };
 
   enum LCD_MODE {
-    COM_INVERT = 0xA0,
-    CLEAR_SCREEN = 0x20,
-    UPDATE_MONO = 0x88,
-    UPDATE_3COLOR = 0x80,
-    UPDATE_4COLOR = 0x90,
-    BLINK_BLACK = 0x10,
-    BLINK_WHITE = 0x18,
-    BLINK_INVERT = 0x14,
-    BLINK_STOP = NOP,
+    COM_INVERT = 0x00,     // 0-X-0-0-0-0-XX
+    UPDATE_4COLOR = 0x90,  // 1-X-0-1-0-0-XX
+    UPDATE_MONO = 0x88,    // 1-X-0-0-1-0-XX
+    UPDATE_3COLOR = 0x80,  // 1-X-0-0-0-0-XX
+    CLEAR_SCREEN = 0x20,   // 0-X-1-0-0-0-XX
+    BLINK_BLACK = 0x10,    // 0-X-0-1-0-0-XX
+    BLINK_WHITE = 0x18,    // 0-X-0-1-1-0-XX
+    BLINK_INVERT = 0x14,   // 0-X-0-1-0-1-XX
+    BLINK_STOP = COM_INVERT
   };
 
   /** Constructor
