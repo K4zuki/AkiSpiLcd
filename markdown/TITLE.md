@@ -62,6 +62,8 @@ OMMFで販売もしました。その後マルツ[^05]とスイッチサイエ�
 必要になると思いますし、とりあえず対象外にします。[^09]
 
 `markdown/1.0_BoardDesign.md`{.include}
+`markdown/2.0_mbedAPI.md`{.include}
+
 <!--  -->
 [^01]: http://akizukidenshi.com/catalog/g/gP-04944/
 [^02]: 信号は3V系推奨らしいです
