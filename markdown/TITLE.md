@@ -54,7 +54,7 @@ OMMFで販売もしました。その後マルツ[^05]とスイッチサイエ�
 をします。いままでにこの基板を入手された方は特に _SRAMの存在価値について_ 疑問を
 お持ちだと思いますので、そのあたりを重点的に。
 
-# 注意事項
+## 注意事項
 
 この文書で対象とする液晶モジュールは前述の秋月電子で販売中のものと、Mouserで
 入手できるもの[^08]の2品種のみとします。最近スイッチサイエンスで販売しだした
@@ -63,13 +63,13 @@ OMMFで販売もしました。その後マルツ[^05]とスイッチサイエ�
 
 `markdown/1.0_BoardDesign.md`{.include}
 <!--  -->
-[^01]: TODO: 秋月商品ページへのリンク
+[^01]: http://akizukidenshi.com/catalog/g/gP-04944/
 [^02]: 信号は3V系推奨らしいです
-[^03]: TODO: 秋月商品ページへのリンク
+[^03]: http://akizukidenshi.com/catalog/g/gK-06875/
 [^04]: フレキを通すために削った部分の幅が狭くて加工が必要だった。
-[^05]: TODO: マルツ商品ページヘのリンク
-[^06]: TODO: スイッチサイエンス商品ページへのリンク
-[^07]: TODO: mbedライブラリへのリンク
-[^08]: TODO: Mouser商品ページへのリンク
-[^09]: 今回は触れませんが気になったので基板設計しちゃいました
--> https://github.com/K4zuki/SsciSpiLcd です
+[^05]: Thttp://www.marutsu.co.jp/pc/i/259032/
+[^06]: https://www.switch-science.com/catalog/2407/
+[^07]: https://github.com/K4zuki/AkiSpiLcd
+[^08]: http://www.mouser.com/ProductDetail/Sharp-Microelectronics/LS027B7DH01A/
+[^09]: とか言ってたけど気になったので基板設計しちゃいました =>
+ https://github.com/K4zuki/SsciSpiLcd です
