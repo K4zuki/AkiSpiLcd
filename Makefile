@@ -75,7 +75,7 @@ tables: $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
-wavedrom: $(WAVEPNG)
+wavedrom: $(WAVEPNG) $(WAVEDIR)
 $(WAVEDIR)/%.png: $(TARGETDIR)/%.json
 	phantomjs $(WAVEDROM) -i $< -p $@
 
