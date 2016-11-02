@@ -1,0 +1,29 @@
+# _ram_select();
+# _spi.write(command);
+# _spi.write(address >> 8);
+# _spi.write(address & 0xFF);
+# _ram_prepareCommand(READ, address);
+# _csl = 1;
+#   for (int j = 0; j <= length; j++) {
+#     for (int k = 0; k < RAMLINE_LENGTH; k += 4) {
+#       dummy = _spi.write(0x55de);
+#       dummy = _spi.write(0xadaa);
+#     }
+#   }
+# }
+# _spi.write(0xdead);
+# _csl = 0;
+# _ram_deselect();
+signal:
+  - name: "CSL"
+    phase: 0.5
+    wave: "0.........1...........0"
+  - name: "CSR"
+    phase: 0.5
+    wave: "10....................1"
+  - name: "MOSI"
+    wave: "0=.=..=..x=....|.....0"
+    data: ["CMD(1)", "ADDR MSB(1)", "ADDR LSB(1)", "DUMMY(54)"]
+  - name: "RAM MISO = LCD MOSI"
+    wave: "0x........=.=.=|.=...0"
+    data: ["CMD(1)", "ADDR(1)", "DATA(50)", "DUMMY(2)"]
