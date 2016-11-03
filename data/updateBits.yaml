@@ -1,0 +1,12 @@
+# コマンドビットは`0-X-1-XXXXX`
+signal:
+  - name: "CS"
+    wave: "01.................0"
+    phase: 0.5
+  - name: "MOSI"
+#           0X1XXXXX XXXXXXXX
+    wave: "x0x1=..=..=.|..=..0"
+    data: ["DUMMY(5bit)", "ADDRESS(1)", "PIXCEL DATA(50)", "TRANSFER(2)"]
+  - name: "SCK"
+    phase: 0.5
+    wave: "0.P.|....|...|...|.0"
