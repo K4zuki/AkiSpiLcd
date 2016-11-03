@@ -1,10 +1,11 @@
 # コマンドビットは`0-X-1-XXXXX`
 signal:
   - name: "CS"
-    wave: "01................0"
+    phase: 0.5
+    wave: "01.................0"
   - name: "MOSI"
 #           0X1XXXXX XXXXXXXX
     wave: "0.x1x....0x.......0"
   - name: "SCK"
     phase: 0.5
-    wave: "0.p.......0p.......0"
+    wave: "0.P.......0P.......0"
