@@ -26,6 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "MemoryLcd.h"
 #include "Ser23K256.h"
 #include "mbed.h"  //NOLINT
+
 /** \class AkiSpiLcd
  * \brief mbed library for SHARP LCD LS027B4DH01
  *
