@@ -37,7 +37,7 @@ listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 
 # まえがき {.unnumbered}
 
-![外観写真](images/TopView.jpg)
+![外観写真(*液晶は付属しません*)](images/TopView.jpg)
 
 このドキュメントは、秋月電子で販売されている2.7インチモノクロメモリ液晶[^01]の
 ブレークアウト基板の仕様とmbed(TM)向けライブラリを解説する本です。
