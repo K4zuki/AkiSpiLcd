@@ -33,7 +33,7 @@ listings: true
 codeBlockCaptions: true
 listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
-...
+---
 
 # まえがき {.unnumbered}
 
