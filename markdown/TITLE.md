@@ -6,10 +6,10 @@ author: "@_K4ZUKI_"
 date: C91/2016-Dec
 comiket: "C91"
 year: "2016"
-publisher: "秋葉原キンコーズで印刷製本予定"
+publisher: "キンコーズオンラインで印刷製本・秋葉原店で受け取り"
 docrevision: "1.0"
 short-hash: (git short hash)
-printer: true
+printer: false
 
 documentclass: book
 papersize: b5paper
