@@ -9,6 +9,7 @@ year: "2016"
 publisher: "秋葉原キンコーズで印刷製本予定"
 docrevision: "1.0"
 short-hash: (git short hash)
+printer: true
 
 documentclass: book
 papersize: b5paper
@@ -69,6 +70,7 @@ PICマイコンと液晶搭載部分が一体になっていました。しか�
 
 `markdown/1.0_BoardDesign.md`{.include}
 `markdown/2.0_mbedAPI.md`{.include}
+`markdown/9.9_tail.md`{.include}
 
 <!--  -->
 [^01]: http://akizukidenshi.com/catalog/g/gP-04944/
