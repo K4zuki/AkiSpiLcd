@@ -1,7 +1,7 @@
 ---
 title: 秋月メモリ液晶ブレークアウト基板の本
 abstract: 秋月電子「メモリ液晶」のブレークアウト基板とmbed^TM^ライブラリの解説
-circle: KY技研/みんなのラボ
+circle: KY技研
 author: "@_K4ZUKI_"
 date: C91/2016-Dec
 comiket: "C91"
