@@ -26,6 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "MemoryLcd.h"
 #include "Ser23K256.h"
 #include "mbed.h"  //NOLINT
+
 /** \class AkiSpiLcd
  * \brief mbed library for SHARP LCD LS027B4DH01
  *
@@ -54,10 +55,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * @endcode
  */
 
-#define SCREEN0 0
-#define SCREEN1 1
-#define LINE_LENGTH 50
-#define RAMLINE_LENGTH 52
+// #define SCREEN0 0
+// #define SCREEN1 1
+// #define LINE_LENGTH 50
+// #define RAMLINE_LENGTH 52
 
 const uint8_t lcd_line[256] = {
     0x00, 0x80, 0x40, 0xC0, 0x20, 0xA0, 0x60, 0xE0, 0x10, 0x90, 0x50, 0xD0,
@@ -88,9 +89,19 @@ class AkiLCD_MODE : public LCD_MODE {
   static const uint8_t COM_INVERT = 0x00;    // 0-X-0-XXXXX
   static const uint8_t CLEAR_SCREEN = 0x20;  // 0-X-1-XXXXX
   static const uint8_t UPDATE = 0x80;        // 1-X-0-XXXXX
+
+  static const uint8_t SCREEN0 = 0;
+  static const uint8_t SCREEN1 = 1;
+  static const uint8_t SCREEN0_BASE = 0x0000;
+  static const uint8_t SCREEN1_BASE = 0x4000;
+
+  static const uint8_t LINE_LENGTH = 50;
+  static const uint8_t RAMLINE_LENGTH = 52;
+
+  static const uint8_t LCD_HEIGHT = 240;
 };
 
-class AkiSpiLcd {
+class AkiSpiLcd : public MemoryLCD {
  public:
   /** \enum BASE_ADDR
       \brief base address list for 23K256
@@ -98,22 +109,22 @@ class AkiSpiLcd {
       @param SCREEN1_BASE = 0x3000,
       @param RAMLINE_BASE = 0x6000,
   */
-  enum BASE_ADDR {
-    SCREEN0_BASE = 0x0000,
-    SCREEN1_BASE = 0x4000,
-  };
+  // enum BASE_ADDR {
+  //   SCREEN0_BASE = 0x0000,
+  //   SCREEN1_BASE = 0x4000,
+  // };
 
-  enum LCD_MODE {
-    COM_INVERT = 0x00,     // 0-X-0-0-0-0-XX
-    UPDATE_4COLOR = 0x90,  // 1-X-0-1-0-0-XX
-    UPDATE_MONO = 0x88,    // 1-X-0-0-1-0-XX
-    UPDATE_3COLOR = 0x80,  // 1-X-0-0-0-0-XX
-    CLEAR_SCREEN = 0x20,   // 0-X-1-0-0-0-XX
-    BLINK_BLACK = 0x10,    // 0-X-0-1-0-0-XX
-    BLINK_WHITE = 0x18,    // 0-X-0-1-1-0-XX
-    BLINK_INVERT = 0x14,   // 0-X-0-1-0-1-XX
-    BLINK_STOP = COM_INVERT
-  };
+  // enum LCD_MODE {
+  //   COM_INVERT = 0x00,     // 0-X-0-0-0-0-XX
+  //   UPDATE_4COLOR = 0x90,  // 1-X-0-1-0-0-XX
+  //   UPDATE_MONO = 0x88,    // 1-X-0-0-1-0-XX
+  //   UPDATE_3COLOR = 0x80,  // 1-X-0-0-0-0-XX
+  //   CLEAR_SCREEN = 0x20,   // 0-X-1-0-0-0-XX
+  //   BLINK_BLACK = 0x10,    // 0-X-0-1-0-0-XX
+  //   BLINK_WHITE = 0x18,    // 0-X-0-1-1-0-XX
+  //   BLINK_INVERT = 0x14,   // 0-X-0-1-0-1-XX
+  //   BLINK_STOP = COM_INVERT
+  // };
 
   /** Constructor
   * @param mosi SPI data output from mbed
@@ -132,18 +143,18 @@ class AkiSpiLcd {
 
   /** Clear screen
   */
-  void cls();
+  virtual void cls();
 
   /** Update coloring setting
   * @param color 0 for 4bit color mode(4bits/dot), 1 for monochrome
   * mode(1bit/dot)
   */
-  void set_color(int color);
+  // void set_color(int color);
 
   /** Gets current coloring setting
   * @return 0 for 4bit color mode(4bits/dot), 1 for monochrome mode(1bit/dot)
   */
-  int get_color(void);
+  // int get_color(void);
 
   /** Clear screen of SRAM
   * @param screen screen number (0 or 1)
@@ -162,18 +173,18 @@ class AkiSpiLcd {
   * @param line line number(1-240)
   * @param *data pointer to data
   */
-  void directUpdateSingle(int line, uint8_t *data);
+  virtual void directUpdateSingle(int line, uint8_t *data);
 
   /** Writes multi lines(400 x N bits = 50 x N bytes)
   * @param line line number(1-240)
   * @param length number of line to write
   * @param *data pointer to data
   */
-  void directUpdateMulti(int startline, int length, uint8_t *data);
+  virtual void directUpdateMulti(int startline, int length, uint8_t *data);
 
   /** Inverting internal COM signal
   */
-  void cominvert();
+  virtual void cominvert();
 
   /** Reads single line (400 bits = 50 bytes) from a screen and writes into
   * buffer
@@ -248,7 +259,7 @@ class AkiSpiLcd {
   // Ser23K256 _ram;
 
   // enum RAM_MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
-
+  //
   // enum RAM_COMMAND {
   //   READ = 0x03,
   //   WRITE = 0x02,
@@ -263,7 +274,7 @@ class AkiSpiLcd {
   DigitalOut _csl;
   DigitalOut _csr;
 
-  uint8_t _generate_line(int line);
+  virtual uint8_t _generate_line(int line);
   void _cls_ram(int address);
   uint8_t ram_readStatus();
   void _ram_writeStatus(uint8_t status);
