@@ -27,47 +27,48 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 class LCD_MODE {
  public:
-  static const uint8_t COM_INVERT = 0;
-  static const uint8_t CLEAR_SCREEN = 0;
-  static const uint8_t UPDATE = 0;
+  virtual static const uint8_t COM_INVERT = 0;
+  virtual static const uint8_t CLEAR_SCREEN = 0;
+  virtual static const uint8_t UPDATE = 0;
 };
 
-// class MemoryLCD {
-//  public:
-//   // enum LCD_MODE { COM_INVERT, CLEAR_SCREEN, UPDATE };
-//
-//   /** Constructor
-//   * @param mosi SPI data output from mbed
-//   * @param mosi SPI data input from slave
-//   * @param sck SPI clock output from mbed
-//   * @param csl chip select input for LCD
-//   */
-//   MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl);
-//
-//   /** Clear screen
-//   */
-//   void cls();
-//
-//   /** Writes single line(400 bits = 50 bytes)
-//   * @param line line number
-//   * @param *data pointer to data
-//   */
-//   void directUpdateSingle(int line, uint8_t *data);
-//
-//   /** Writes multi lines
-//   * @param line line number
-//   * @param length number of line to write
-//   * @param *data pointer to data
-//   */
-//   void directUpdateMulti(int startline, int length, uint8_t *data);
-//
-//   /** Inverting internal COM signal
-//   */
-//   void cominvert();
-//
-//  private:
-//   int _comflag;
-//   SPI _spi;
-//   DigitalOut _csl;
-// };
+class MemoryLCD {
+ public:
+  // enum LCD_MODE { COM_INVERT, CLEAR_SCREEN, UPDATE };
+
+  /** Constructor
+  * @param mosi SPI data output from mbed
+  * @param mosi SPI data input from slave
+  * @param sck SPI clock output from mbed
+  * @param csl chip select input for LCD
+  */
+  MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl);
+
+  /** Clear screen
+  */
+  virtual void cls() = 0;
+
+  /** Writes single line(400 bits = 50 bytes)
+  * @param line line number
+  * @param *data pointer to data
+  */
+  virtual void directUpdateSingle(int line, uint8_t *data) = 0;
+
+  /** Writes multi lines
+  * @param line line number
+  * @param length number of line to write
+  * @param *data pointer to data
+  */
+  virtual void directUpdateMulti(int startline, int length, uint8_t *data) = 0;
+
+  /** Inverting internal COM signal
+  */
+  virtual void cominvert() = 0;
+
+ private:
+  virtual uint8_t _generate_line(int line) = 0;
+  int _comflag;
+  SPI _spi;
+  DigitalOut _csl;
+};
 #endif  // __MEMORYLCD_H__ //NOLINT

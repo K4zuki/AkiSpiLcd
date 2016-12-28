@@ -20,15 +20,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /** this is base class for Memory LCDs from SHARP or JDI
 * by Kazuki Yamamoto, or _K4ZUKI_
 */
-// #include "MemoryLcd.h"
-//
-// MemoryLCD::MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl)
-//     : _spi(mosi, miso, sck), _csl(csl) {
-//   _csl = 0;
-//   _spi.format(8, 0);
-//   _spi.frequency(1000000);
-//   _comflag = 0;
-// }
+#include "MemoryLcd.h"
+
+MemoryLCD::MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl)
+    : _spi(mosi, miso, sck), _csl(csl) {
+  _spi.format(8, 0);
+  _spi.frequency(1000000);
+}
 //
 // void MemoryLCD::cls() {
 //   _csl = 1;
