@@ -168,7 +168,7 @@ void SsciSpiLcd::ramWriteSingleLine(int line, uint8_t *data, int screen) {
   line--;
   line *= SsciLCD_MODE::RAMLINE_LENGTH;
   int address = screen + line;
-  _mem.writeaddress, data, SsciLCD_MODE::LINE_LENGTH);
+  _mem.write(address, data, SsciLCD_MODE::LINE_LENGTH);
 }
 
 /** Writes multi lines(400 x N bits = 50 x N bytes) into a screen
@@ -184,7 +184,7 @@ void SsciSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data,
   //    line--;
   //    line*=RAMLINE_LENGTH;
 
-  int address = screen + line * RAMLINE_LENGTH;
+  int address = screen + line * SsciLCD_MODE::RAMLINE_LENGTH;
   _ram_writeStatus(SEQUENTIAL_MODE);  // SEQUENTIAL_MODE predifined in Ser23K256
   _ram_prepareCommand(WRITE, address);  // WRITE predifined in Ser23K256
   for (int i = 0; i < length; i++) {
