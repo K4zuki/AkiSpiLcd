@@ -27,9 +27,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 class LCD_MODE {
  public:
-  virtual static const uint8_t COM_INVERT = 0;
-  virtual static const uint8_t CLEAR_SCREEN = 0;
-  virtual static const uint8_t UPDATE = 0;
+  static const uint8_t COM_INVERT = 0;
+  static const uint8_t CLEAR_SCREEN = 0;
+  static const uint8_t UPDATE = 0;
 };
 
 class MemoryLCD {
