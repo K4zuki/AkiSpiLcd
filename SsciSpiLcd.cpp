@@ -52,14 +52,15 @@ void SsciSpiLcd::cls() {
   cominvert();
 }
 
-// void SsciSpiLcd::set_color(int color) {
-//   if ((color & 1) == 1) {
-//     _colorflag = UPDATE_MONO;
-//   } else {
-//     _colorflag = UPDATE_4COLOR;
-//   }
-// }
-// int SsciSpiLcd::get_color(void) { return (_colorflag >> 4) & 0x01; }
+void SsciSpiLcd::set_color(int color) {
+  if ((color & 1) == 1) {
+    _colorflag = SsciLCD_MODE::UPDATE_MONO;
+  } else {
+    _colorflag = SsciLCD_MODE::UPDATE_4COLOR;
+  }
+}
+
+int SsciSpiLcd::get_color(void) { return (_colorflag >> 4) & 0x01; }
 
 void SsciSpiLcd::cls_ram(int screen) {
   screen &= 1;
