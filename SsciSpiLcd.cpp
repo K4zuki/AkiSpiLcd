@@ -29,7 +29,7 @@ SsciSpiLcd::SsciSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl,
                        PinName csr)
     : MemoryLCD(mosi, miso, sck, csl),
       _spi(mosi, miso, sck),
-      _mem(mosi, miso, sck, csr),
+      _mem(_spi, csr),
       _csl(csl),
       _csr(csr) {
   _csl = 0;

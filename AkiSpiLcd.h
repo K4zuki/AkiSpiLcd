@@ -92,8 +92,8 @@ class AkiLCD_MODE : public LCD_MODE {
 
   static const uint8_t SCREEN0 = 0;
   static const uint8_t SCREEN1 = 1;
-  static const uint8_t SCREEN0_BASE = 0x0000;
-  static const uint8_t SCREEN1_BASE = 0x4000;
+  static const uint16_t SCREEN0_BASE = 0x0000;
+  static const uint16_t SCREEN1_BASE = 0x4000;
 
   static const uint8_t LINE_LENGTH = 50;
   static const uint8_t RAMLINE_LENGTH = 52;
