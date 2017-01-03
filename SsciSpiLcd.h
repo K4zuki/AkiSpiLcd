@@ -77,7 +77,7 @@ class SsciLCD_MODE : public LCD_MODE {
   static const uint16_t SCREEN0_BASE = 0x0000;
   static const uint16_t SCREEN1_BASE = 0x4000;
 
-  static const uint8_t LINE_LENGTH = 88;
+  static const uint8_t LINE_LENGTH = 22;
   static const uint8_t RAMLINE_LENGTH = 90;
 
   static const uint8_t LCD_HEIGHT = 176;
@@ -251,6 +251,7 @@ class SsciSpiLcd : public MemoryLCD {
 
   int _comflag;
   int _colorflag;
+  int _mux;
   SPI _spi;
   Ser23K256 _mem;
   DigitalOut _csl;

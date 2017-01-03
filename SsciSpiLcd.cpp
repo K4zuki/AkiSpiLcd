@@ -39,6 +39,7 @@ SsciSpiLcd::SsciSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl,
 
   _colorflag = SsciLCD_MODE::UPDATE_4COLOR;
   _comflag = 0;
+  _mux = 4;
 }
 
 void SsciSpiLcd::cls() {
@@ -55,8 +56,10 @@ void SsciSpiLcd::cls() {
 void SsciSpiLcd::set_color(int color) {
   if ((color & 1) == 1) {
     _colorflag = SsciLCD_MODE::UPDATE_MONO;
+    _mux = 1;
   } else {
     _colorflag = SsciLCD_MODE::UPDATE_4COLOR;
+    _mux = 4;
   }
 }
 
@@ -77,10 +80,10 @@ void SsciSpiLcd::directUpdateSingle(int line, uint8_t *data) {
   _csl = 1;
   if (line == 0) line = 1;
 
-  _spi.write(SsciLCD_MODE::UPDATE_4COLOR | (_comflag << 6));
+  _spi.write(_colorflag | (_comflag << 6));
   _spi.write(_generate_line(line));
 
-  for (int i = 0; i < SsciLCD_MODE::LINE_LENGTH; i++) {
+  for (int i = 0; i < SsciLCD_MODE::LINE_LENGTH * _mux; i++) {
     _spi.write(*(data + i));
   }
   _spi.write(0x00);
@@ -98,10 +101,10 @@ void SsciSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {
     _csl = 1;
 
     for (int j = 1; j <= length; j++) {
-      _spi.write(SsciLCD_MODE::UPDATE_4COLOR | (_comflag << 6));
+      _spi.write(_colorflag | (_comflag << 6));
       _spi.write(_generate_line(line));
-      for (int i = 0; i < SsciLCD_MODE::LINE_LENGTH; i++) {
-        _spi.write(*(data + (SsciLCD_MODE::LINE_LENGTH * j + i)));
+      for (int i = 0; i < SsciLCD_MODE::LINE_LENGTH * _mux; i++) {
+        _spi.write(*(data + (SsciLCD_MODE::LINE_LENGTH * _mux * j + i)));
       }
       line += 1;
     }
@@ -214,7 +217,6 @@ void SsciSpiLcd::ram2lcd(int startline, int length, int screen) {
 
   if (length > 0) {
     int address = screen + startline * SsciLCD_MODE::RAMLINE_LENGTH;
-    int dummy = 0;
 
     _ram_writeStatus(
         SEQUENTIAL_MODE);  // SEQUENTIAL_MODE predifined in Ser23K256
@@ -224,8 +226,8 @@ void SsciSpiLcd::ram2lcd(int startline, int length, int screen) {
 
     for (int j = 0; j <= length; j++) {
       for (int k = 0; k < SsciLCD_MODE::RAMLINE_LENGTH; k += 4) {
-        dummy = _spi.write(0x55de);
-        dummy = _spi.write(0xadaa);
+        _spi.write(0x55de);
+        _spi.write(0xadaa);
       }
     }
   }
