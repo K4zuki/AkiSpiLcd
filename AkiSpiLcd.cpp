@@ -213,7 +213,6 @@ void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {
 
   if (length > 0) {
     int address = screen + startline * AkiLCD_MODE::RAMLINE_LENGTH;
-    int dummy = 0;
 
     _ram_writeStatus(
         SEQUENTIAL_MODE);  // SEQUENTIAL_MODE predifined in Ser23K256
@@ -223,8 +222,8 @@ void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {
 
     for (int j = 0; j <= length; j++) {
       for (int k = 0; k < AkiLCD_MODE::RAMLINE_LENGTH; k += 4) {
-        dummy = _spi.write(0x55de);
-        dummy = _spi.write(0xadaa);
+        _spi.write(0x55de);
+        _spi.write(0xadaa);
       }
     }
   }
