@@ -52,15 +52,6 @@ void AkiSpiLcd::cls() {
   cominvert();
 }
 
-// void AkiSpiLcd::set_color(int color) {
-//   if ((color & 1) == 1) {
-//     _colorflag = UPDATE_MONO;
-//   } else {
-//     _colorflag = UPDATE_4COLOR;
-//   }
-// }
-// int AkiSpiLcd::get_color(void) { return (_colorflag >> 4) & 0x01; }
-
 void AkiSpiLcd::cls_ram(int screen) {
   screen &= 1;
   if (screen == AkiLCD_MODE::SCREEN0) {
@@ -181,8 +172,6 @@ void AkiSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data,
   } else {
     screen = AkiLCD_MODE::SCREEN1_BASE;
   }
-  //    line--;
-  //    line*=RAMLINE_LENGTH;
 
   int address = screen + line * AkiLCD_MODE::RAMLINE_LENGTH;
   _ram_writeStatus(SEQUENTIAL_MODE);  // SEQUENTIAL_MODE predifined in Ser23K256

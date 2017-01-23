@@ -16,7 +16,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-/** this is for JDI LCD LS027B4DH01
+/** this is for JDI LCD LPM013M126A
 * by Kazuki Yamamoto, or _K4ZUKI_
 */
 
@@ -55,11 +55,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * @endcode
  */
 
-// #define SCREEN0 0
-// #define SCREEN1 1
-// #define LINE_LENGTH 50
-// #define RAMLINE_LENGTH 52
-
 class SsciLCD_MODE : public LCD_MODE {
  public:
   static const uint8_t COM_INVERT = 0x00;     // 0-X-0-0-0-0-XX
@@ -85,29 +80,6 @@ class SsciLCD_MODE : public LCD_MODE {
 
 class SsciSpiLcd : public MemoryLCD {
  public:
-  /** \enum BASE_ADDR
-      \brief base address list for 23K256
-      @param SCREEN0_BASE = 0x0000,
-      @param SCREEN1_BASE = 0x3000,
-      @param RAMLINE_BASE = 0x6000,
-  */
-  // enum BASE_ADDR {
-  //   SCREEN0_BASE = 0x0000,
-  //   SCREEN1_BASE = 0x4000,
-  // };
-
-  // enum LCD_MODE {
-  //   COM_INVERT = 0x00,     // 0-X-0-0-0-0-XX
-  //   UPDATE_4COLOR = 0x90,  // 1-X-0-1-0-0-XX
-  //   UPDATE_MONO = 0x88,    // 1-X-0-0-1-0-XX
-  //   UPDATE_3COLOR = 0x80,  // 1-X-0-0-0-0-XX
-  //   CLEAR_SCREEN = 0x20,   // 0-X-1-0-0-0-XX
-  //   BLINK_BLACK = 0x10,    // 0-X-0-1-0-0-XX
-  //   BLINK_WHITE = 0x18,    // 0-X-0-1-1-0-XX
-  //   BLINK_INVERT = 0x14,   // 0-X-0-1-0-1-XX
-  //   BLINK_STOP = COM_INVERT
-  // };
-
   /** Constructor
   * @param mosi SPI data output from mbed
   * @param mosi SPI data input from slave
@@ -116,12 +88,6 @@ class SsciSpiLcd : public MemoryLCD {
   * @param csr LOW-active chip select input for SRAM
   */
   SsciSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr);
-
-  // SsciSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName
-  // disp);
-  // SsciSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName
-  // csr,
-  //           PinName disp);
 
   /** Clear screen
   */
@@ -238,17 +204,6 @@ class SsciSpiLcd : public MemoryLCD {
   void ram_write(int address, uint8_t *buffer, int count);
 
  private:
-  // Ser23K256 _ram;
-
-  // enum RAM_MODE { BYTE_MODE = 0x00, SEQUENTIAL_MODE = 0x40 };
-
-  // enum RAM_COMMAND {
-  //   READ = 0x03,
-  //   WRITE = 0x02,
-  //   READ_STATUS = 0x05,  // called RDSR in datasheet
-  //   WRITE_STATUS = 0x01  // called WRSR in datasheet
-  // };
-
   int _comflag;
   int _colorflag;
   int _mux;
