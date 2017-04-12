@@ -1,0 +1,97 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AkiLCD_MODE	AkiSpiLcd.h	/^class AkiLCD_MODE : public LCD_MODE {$/;"	c
+AkiSpiLcd	AkiSpiLcd.cpp	/^AkiSpiLcd::AkiSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr)$/;"	f	class:AkiSpiLcd
+AkiSpiLcd	AkiSpiLcd.h	/^class AkiSpiLcd : public MemoryLCD {$/;"	c
+BLINK_BLACK	SsciSpiLcd.h	/^    static const uint8_t BLINK_BLACK = 0x10;    \/\/ 0-X-0-1-0-0-XX$/;"	m	class:SsciLCD_MODE
+BLINK_INVERT	SsciSpiLcd.h	/^    static const uint8_t BLINK_INVERT = 0x14;   \/\/ 0-X-0-1-0-1-XX$/;"	m	class:SsciLCD_MODE
+BLINK_STOP	SsciSpiLcd.h	/^    static const uint8_t BLINK_STOP = COM_INVERT;$/;"	m	class:SsciLCD_MODE
+BLINK_WHITE	SsciSpiLcd.h	/^    static const uint8_t BLINK_WHITE = 0x18;    \/\/ 0-X-0-1-1-0-XX$/;"	m	class:SsciLCD_MODE
+CLEAR_SCREEN	AkiSpiLcd.h	/^    static const uint8_t CLEAR_SCREEN = 0x20;  \/\/ 0-X-1-XXXXX$/;"	m	class:AkiLCD_MODE
+CLEAR_SCREEN	MemoryLcd.h	/^  static const uint8_t CLEAR_SCREEN = 0;$/;"	m	class:LCD_MODE
+CLEAR_SCREEN	SsciSpiLcd.h	/^    static const uint8_t CLEAR_SCREEN = 0x20;   \/\/ 0-X-1-0-0-0-XX$/;"	m	class:SsciLCD_MODE
+COM_INVERT	AkiSpiLcd.h	/^    static const uint8_t COM_INVERT = 0x00;    \/\/ 0-X-0-XXXXX$/;"	m	class:AkiLCD_MODE
+COM_INVERT	MemoryLcd.h	/^  static const uint8_t COM_INVERT = 0;$/;"	m	class:LCD_MODE
+COM_INVERT	SsciSpiLcd.h	/^    static const uint8_t COM_INVERT = 0x00;     \/\/ 0-X-0-0-0-0-XX$/;"	m	class:SsciLCD_MODE
+LCD_HEIGHT	AkiSpiLcd.h	/^    static const uint8_t LCD_HEIGHT = 240;$/;"	m	class:AkiLCD_MODE
+LCD_HEIGHT	SsciSpiLcd.h	/^    static const uint8_t LCD_HEIGHT = 176;$/;"	m	class:SsciLCD_MODE
+LCD_MODE	MemoryLcd.h	/^class LCD_MODE {$/;"	c
+LINE_LENGTH	AkiSpiLcd.h	/^    static const uint8_t LINE_LENGTH = 50;$/;"	m	class:AkiLCD_MODE
+LINE_LENGTH	SsciSpiLcd.h	/^    static const uint8_t LINE_LENGTH = 22;$/;"	m	class:SsciLCD_MODE
+MemoryLCD	MemoryLcd.cpp	/^MemoryLCD::MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl)$/;"	f	class:MemoryLCD
+MemoryLCD	MemoryLcd.h	/^class MemoryLCD {$/;"	c
+RAMLINE_LENGTH	AkiSpiLcd.h	/^    static const uint8_t RAMLINE_LENGTH = 52;$/;"	m	class:AkiLCD_MODE
+RAMLINE_LENGTH	SsciSpiLcd.h	/^    static const uint8_t RAMLINE_LENGTH = 90;$/;"	m	class:SsciLCD_MODE
+SCREEN0	AkiSpiLcd.h	/^    static const uint8_t SCREEN0 = 0;$/;"	m	class:AkiLCD_MODE
+SCREEN0	SsciSpiLcd.h	/^    static const uint8_t SCREEN0 = 0;$/;"	m	class:SsciLCD_MODE
+SCREEN0_BASE	AkiSpiLcd.h	/^    static const uint16_t SCREEN0_BASE = 0x0000;$/;"	m	class:AkiLCD_MODE
+SCREEN0_BASE	SsciSpiLcd.h	/^    static const uint16_t SCREEN0_BASE = 0x0000;$/;"	m	class:SsciLCD_MODE
+SCREEN1	AkiSpiLcd.h	/^    static const uint8_t SCREEN1 = 1;$/;"	m	class:AkiLCD_MODE
+SCREEN1	SsciSpiLcd.h	/^    static const uint8_t SCREEN1 = 1;$/;"	m	class:SsciLCD_MODE
+SCREEN1_BASE	AkiSpiLcd.h	/^    static const uint16_t SCREEN1_BASE = 0x4000;$/;"	m	class:AkiLCD_MODE
+SCREEN1_BASE	SsciSpiLcd.h	/^    static const uint16_t SCREEN1_BASE = 0x4000;$/;"	m	class:SsciLCD_MODE
+SsciLCD_MODE	SsciSpiLcd.h	/^class SsciLCD_MODE : public LCD_MODE {$/;"	c
+SsciSpiLcd	SsciSpiLcd.cpp	/^SsciSpiLcd::SsciSpiLcd(PinName mosi, PinName miso, PinName sck, PinName csl, PinName csr)$/;"	f	class:SsciSpiLcd
+SsciSpiLcd	SsciSpiLcd.h	/^class SsciSpiLcd : public MemoryLCD {$/;"	c
+UPDATE	AkiSpiLcd.h	/^    static const uint8_t UPDATE = 0x80;        \/\/ 1-X-0-XXXXX$/;"	m	class:AkiLCD_MODE
+UPDATE	MemoryLcd.h	/^  static const uint8_t UPDATE = 0;$/;"	m	class:LCD_MODE
+UPDATE_3COLOR	SsciSpiLcd.h	/^    static const uint8_t UPDATE_3COLOR = 0x80;  \/\/ 1-X-0-0-0-0-XX$/;"	m	class:SsciLCD_MODE
+UPDATE_4COLOR	SsciSpiLcd.h	/^    static const uint8_t UPDATE_4COLOR = 0x90;  \/\/ 1-X-0-1-0-0-XX$/;"	m	class:SsciLCD_MODE
+UPDATE_MONO	SsciSpiLcd.h	/^    static const uint8_t UPDATE_MONO = 0x88;    \/\/ 1-X-0-0-1-0-XX$/;"	m	class:SsciLCD_MODE
+__AKISPILCD_H__	AkiSpiLcd.h	24;"	d
+__MEMORYLCD_H__	MemoryLcd.h	24;"	d
+__SSCISPILCD_H__	SsciSpiLcd.h	24;"	d
+_cls_ram	AkiSpiLcd.cpp	/^void AkiSpiLcd::_cls_ram(int address) {$/;"	f	class:AkiSpiLcd
+_cls_ram	SsciSpiLcd.cpp	/^void SsciSpiLcd::_cls_ram(int address) {$/;"	f	class:SsciSpiLcd
+_colorflag	AkiSpiLcd.h	/^    int _colorflag;$/;"	m	class:AkiSpiLcd
+_colorflag	SsciSpiLcd.h	/^    int _colorflag;$/;"	m	class:SsciSpiLcd
+_comflag	AkiSpiLcd.h	/^    int _comflag;$/;"	m	class:AkiSpiLcd
+_comflag	MemoryLcd.h	/^  int _comflag;$/;"	m	class:MemoryLCD
+_comflag	SsciSpiLcd.h	/^    int _comflag;$/;"	m	class:SsciSpiLcd
+_csl	AkiSpiLcd.h	/^    DigitalOut _csl;$/;"	m	class:AkiSpiLcd
+_csl	MemoryLcd.h	/^  DigitalOut _csl;$/;"	m	class:MemoryLCD
+_csl	SsciSpiLcd.h	/^    DigitalOut _csl;$/;"	m	class:SsciSpiLcd
+_csr	AkiSpiLcd.h	/^    DigitalOut _csr;$/;"	m	class:AkiSpiLcd
+_csr	SsciSpiLcd.h	/^    DigitalOut _csr;$/;"	m	class:SsciSpiLcd
+_generate_line	AkiSpiLcd.cpp	/^uint8_t AkiSpiLcd::_generate_line(int line) { return lcd_line[line]; }$/;"	f	class:AkiSpiLcd
+_generate_line	SsciSpiLcd.cpp	/^uint8_t SsciSpiLcd::_generate_line(int line) { return line + 1; }$/;"	f	class:SsciSpiLcd
+_mem	AkiSpiLcd.h	/^    Ser23K256 _mem;$/;"	m	class:AkiSpiLcd
+_mem	SsciSpiLcd.h	/^    Ser23K256 _mem;$/;"	m	class:SsciSpiLcd
+_mux	SsciSpiLcd.h	/^    int _mux;$/;"	m	class:SsciSpiLcd
+_ram_prepareCommand	AkiSpiLcd.cpp	/^void AkiSpiLcd::_ram_prepareCommand(uint8_t command, int address) {$/;"	f	class:AkiSpiLcd
+_ram_prepareCommand	SsciSpiLcd.cpp	/^void SsciSpiLcd::_ram_prepareCommand(uint8_t command, int address) {$/;"	f	class:SsciSpiLcd
+_ram_writeStatus	AkiSpiLcd.cpp	/^void AkiSpiLcd::_ram_writeStatus(uint8_t status) {$/;"	f	class:AkiSpiLcd
+_ram_writeStatus	SsciSpiLcd.cpp	/^void SsciSpiLcd::_ram_writeStatus(uint8_t status) {$/;"	f	class:SsciSpiLcd
+_spi	AkiSpiLcd.h	/^    SPI _spi;$/;"	m	class:AkiSpiLcd
+_spi	MemoryLcd.h	/^  SPI _spi;$/;"	m	class:MemoryLCD
+_spi	SsciSpiLcd.h	/^    SPI _spi;$/;"	m	class:SsciSpiLcd
+cls	AkiSpiLcd.cpp	/^void AkiSpiLcd::cls() {$/;"	f	class:AkiSpiLcd
+cls	SsciSpiLcd.cpp	/^void SsciSpiLcd::cls() {$/;"	f	class:SsciSpiLcd
+cls_ram	AkiSpiLcd.cpp	/^void AkiSpiLcd::cls_ram(int screen) {$/;"	f	class:AkiSpiLcd
+cls_ram	SsciSpiLcd.cpp	/^void SsciSpiLcd::cls_ram(int screen) {$/;"	f	class:SsciSpiLcd
+cominvert	AkiSpiLcd.cpp	/^void AkiSpiLcd::cominvert() {$/;"	f	class:AkiSpiLcd
+cominvert	SsciSpiLcd.cpp	/^void SsciSpiLcd::cominvert() {$/;"	f	class:SsciSpiLcd
+directUpdateMulti	AkiSpiLcd.cpp	/^void AkiSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {$/;"	f	class:AkiSpiLcd
+directUpdateMulti	SsciSpiLcd.cpp	/^void SsciSpiLcd::directUpdateMulti(int line, int length, uint8_t *data) {$/;"	f	class:SsciSpiLcd
+directUpdateSingle	AkiSpiLcd.cpp	/^void AkiSpiLcd::directUpdateSingle(int line, uint8_t *data) {$/;"	f	class:AkiSpiLcd
+directUpdateSingle	SsciSpiLcd.cpp	/^void SsciSpiLcd::directUpdateSingle(int line, uint8_t *data) {$/;"	f	class:SsciSpiLcd
+get_color	SsciSpiLcd.cpp	/^int SsciSpiLcd::get_color(void) { return (_colorflag >> 4) & 0x01; }$/;"	f	class:SsciSpiLcd
+lcd_line	AkiSpiLcd.h	/^const uint8_t lcd_line[256] = {$/;"	v
+minlab	minlab.h	/^static const uint16_t minlab[] = {$/;"	v
+ram2lcd	AkiSpiLcd.cpp	/^void AkiSpiLcd::ram2lcd(int screen) {$/;"	f	class:AkiSpiLcd
+ram2lcd	AkiSpiLcd.cpp	/^void AkiSpiLcd::ram2lcd(int startline, int length, int screen) {$/;"	f	class:AkiSpiLcd
+ram2lcd	SsciSpiLcd.cpp	/^void SsciSpiLcd::ram2lcd(int screen) {$/;"	f	class:SsciSpiLcd
+ram2lcd	SsciSpiLcd.cpp	/^void SsciSpiLcd::ram2lcd(int startline, int length, int screen) {$/;"	f	class:SsciSpiLcd
+ramReadMultiLine	AkiSpiLcd.cpp	/^void AkiSpiLcd::ramReadMultiLine(int line, int length, uint8_t *buffer, int screen) {$/;"	f	class:AkiSpiLcd
+ramReadMultiLine	SsciSpiLcd.cpp	/^void SsciSpiLcd::ramReadMultiLine(int line, int length, uint8_t *buffer, int screen) {$/;"	f	class:SsciSpiLcd
+ramReadSingleLine	AkiSpiLcd.cpp	/^void AkiSpiLcd::ramReadSingleLine(int line, uint8_t *buffer, int screen) {$/;"	f	class:AkiSpiLcd
+ramReadSingleLine	SsciSpiLcd.cpp	/^void SsciSpiLcd::ramReadSingleLine(int line, uint8_t *buffer, int screen) {$/;"	f	class:SsciSpiLcd
+ramWriteMultiLine	AkiSpiLcd.cpp	/^void AkiSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data, int screen) {$/;"	f	class:AkiSpiLcd
+ramWriteMultiLine	SsciSpiLcd.cpp	/^void SsciSpiLcd::ramWriteMultiLine(int line, int length, uint8_t *data, int screen) {$/;"	f	class:SsciSpiLcd
+ramWriteSingleLine	AkiSpiLcd.cpp	/^void AkiSpiLcd::ramWriteSingleLine(int line, uint8_t *data, int screen) {$/;"	f	class:AkiSpiLcd
+ramWriteSingleLine	SsciSpiLcd.cpp	/^void SsciSpiLcd::ramWriteSingleLine(int line, uint8_t *data, int screen) {$/;"	f	class:SsciSpiLcd
+set_color	SsciSpiLcd.cpp	/^void SsciSpiLcd::set_color(int color) {$/;"	f	class:SsciSpiLcd
