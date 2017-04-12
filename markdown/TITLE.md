@@ -3,11 +3,11 @@ title: 秋月メモリ液晶ブレークアウト基板の本
 abstract: 秋月電子「メモリ液晶」のブレークアウト基板とmbed^TM^ライブラリの解説
 circle: KY技研
 author: "@_K4ZUKI_"
-date: C91/2016-Dec
-comiket: "C91"
+date: C92/2017-Aug
+comiket: "C92"
 year: "2016"
 publisher: "キンコーズオンラインで印刷製本・秋葉原店で受け取り"
-docrevision: "1.0"
+docrevision: "2.0"
 short-hash: (git short hash)
 printer: false
 
