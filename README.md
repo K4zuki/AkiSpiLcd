@@ -1,4 +1,4 @@
-# C91で新刊を買われた方へ
+# C91/技術書典２で新刊を買われた方へ
 - この本のPDFファイルは
   [こちら](https://github.com/K4zuki/AkiSpiLcd/releases/tag/C91publish)
 - _USB4x3HUB_ の本は[こちら](https://github.com/K4zuki/usb4x3hub)です
