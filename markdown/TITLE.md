@@ -5,7 +5,7 @@ circle: KY技研
 author: "@_K4ZUKI_"
 date: C92/2017-Aug
 comiket: "C92"
-year: "2016"
+year: "2017"
 publisher: "キンコーズオンラインで印刷製本・秋葉原店で受け取り"
 docrevision: "2.0"
 short-hash: (git short hash)
@@ -34,6 +34,7 @@ listings: true
 codeBlockCaptions: true
 listingTitle: 'List'
 listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
+front: "images/AkiSpiLcd-V2.1-brd-gray.png"
 ---
 
 # まえがき {.unnumbered}
