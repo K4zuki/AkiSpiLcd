@@ -47,7 +47,7 @@ BITJSON:= $(BITYAML:%.yaml=$(TARGETDIR)/%.bitjson)
 BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
-FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.fmd)
+FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
 
@@ -58,6 +58,11 @@ PANFLAGS += -M localfontdir=$(FONTDIR)
 PANFLAGS += -M css=$(MISC)/github_css/github.css
 PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
 PANFLAGS += -M tables=true
+
+GPPFLAGS = -H +c "<!--" "-->"
+GPPFLAGS += -I$(MDDIR)
+GPPFLAGS += -I$(DATADIR)
+GPPFLAGS += -I$(TARGETDIR)
 
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
@@ -74,7 +79,7 @@ $(DOCX): $(HTML)
 	$(PYTHON) $(DOCXPWRTR) -I $(MDDIR)/$(INPUT) -O $(DOCX)
 
 html: $(HTML)
-$(HTML): $(TARGETDIR)/$(TARGET).md
+$(HTML): $(TARGETDIR)/$(INPUT)
 	$(PANDOC) $(PANFLAGS) --self-contained -thtml5 --template=$(MISC)/github.html \
 		$(FILTERED) -o $(HTML)
 
@@ -90,17 +95,17 @@ $(TARGETDIR)/$(IMAGEDIR):
 	ln -s ../$(IMAGEDIR)
 
 tex: $(TARGETDIR)/$(TARGET).tex
-$(TARGETDIR)/$(TARGET).tex: $(TARGETDIR)/$(TARGET).md
+$(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
-		$(TARGETDIR)/$(TARGET).md -o $(TARGETDIR)/$(TARGET).tex
+	$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
 
-merge: $(TARGETDIR)/$(TARGET).md
-$(TARGETDIR)/$(TARGET).md: $(FILTERED)
-	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
+# merge: $(TARGETDIR)/$(TARGET).md
+# $(TARGETDIR)/$(TARGET).md: $(FILTERED)
+# 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
 $(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
-	cat $< | $(PYTHON) $(FILTER) --out $@
+	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
 tables: $(TABLES)
 $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
@@ -108,12 +113,17 @@ $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
+ifneq ($(OS),Windows_NT)
 	phantomjs $(WAVEDROM) -i $< -p $@
+else
+	touch $@
+endif
 
 bitfield: $(BITDIR) $(BITPNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
-	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 > $<.svg
-	rsvg-convert $<.svg --format=png --output=$@
+	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
+	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
+	$(RSVG) $<.svg --format=png --output=$@
 
 yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
 $(TARGETDIR)/%.wavejson: $(DATADIR)/$(WAVEDIR)/%.yaml

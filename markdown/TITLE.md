@@ -69,9 +69,9 @@ PICマイコンと液晶搭載部分が一体になっていました。しか�
 カラータイプはどうやらピン互換のようですが電源電圧が異なるので基板側に改造が
 必要になると思いますし、とりあえず対象外にします。[^09]
 
-`markdown/1.0_BoardDesign.md`{.include}
-`markdown/2.0_mbedAPI.md`{.include}
-`markdown/9.9_tail.md`{.include}
+<#include "1.0_BoardDesign.md">
+<#include "2.0_mbedAPI.md">
+<#include "9.9_tail.md">
 
 <!--  -->
 [^01]: http://akizukidenshi.com/catalog/g/gP-04944/
