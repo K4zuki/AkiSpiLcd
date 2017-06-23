@@ -7,6 +7,7 @@
 コミケ９２に向けて改版中の本の原稿です。markdownで書かれています。
 
 # AkiSpiLcd
-**Basic library for SHARP LCD LS027B4DH01/LS027B7DH01**
+- **Basic library for SHARP LCD LS027B4DH01/LS027B7DH01**
+- **Recently adding porting for JDI LPM013M126A**
 
 **This is clone git repogitory of <https://developer.mbed.org/users/k4zuki/code/AkiSpiLcd/>**
