@@ -71,6 +71,7 @@ PICマイコンと液晶搭載部分が一体になっていました。しか�
 
 <#include "1.0_BoardDesign.md">
 <#include "2.0_mbedAPI.md">
+<#include "3.0_portingSSCI.md">
 <#include "9.9_tail.md">
 
 <!--  -->
