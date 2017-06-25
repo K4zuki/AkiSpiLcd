@@ -30,10 +30,10 @@ WAVEDIR:= waves
 BITDIR:= bitfields
 
 INPUT:= TITLE.md
-TARGET = AkiSpiLcd
+TARGET = TARGET
 
 CSV:= $(shell cd $(DATADIR); ls *.csv)
-TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
+# TABLES:= $(CSV:%.csv=$(TARGETDIR)/%.tmd)
 
 WAVEYAML:= $(shell cd $(DATADIR)/$(WAVEDIR); ls *.yaml)
 PYWAVEOPTS:= -c
@@ -51,22 +51,9 @@ FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
 
-PANFLAGS += --toc
-PANFLAGS += --listings
-PANFLAGS += --number-sections --highlight-style=pygments
-PANFLAGS += -M localfontdir=$(FONTDIR)
-PANFLAGS += -M css=$(MISC)/github_css/github.css
-PANFLAGS += -M short-hash=`git rev-parse --short HEAD`
-PANFLAGS += -M tables=true
-
-GPPFLAGS = -H +c "<!--" "-->"
-GPPFLAGS += -I$(MDDIR)
-GPPFLAGS += -I$(DATADIR)
-GPPFLAGS += -I$(TARGETDIR)
-
 MARKDOWN = $(shell ls $(MDDIR)/*.md)
 
-.PHONY: docx html filtered tables pdf tex merge clean linking
+.PHONY: docx html filtered pdf tex merge clean linking
 
 all: html
 
@@ -88,6 +75,7 @@ pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(TARGET).tex
 	xelatex --no-pdf $(TARGET).tex; \
 	xelatex $(TARGET).tex
 
+
 linking: $(TARGETDIR)/$(IMAGEDIR)
 $(TARGETDIR)/$(IMAGEDIR):
 	rm -f $(TARGETDIR)/$(IMAGEDIR); \
@@ -97,19 +85,19 @@ $(TARGETDIR)/$(IMAGEDIR):
 tex: $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 	$(PANDOC) $(PANFLAGS) --template=$(MISC)/CJK_xelatex.tex --latex-engine=xelatex \
-	$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
+		$(FILTERED) -o $(TARGETDIR)/$(TARGET).tex
 
-# merge: $(TARGETDIR)/$(TARGET).md
+# merge: filtered $(TARGETDIR)/$(TARGET).md
 # $(TARGETDIR)/$(TARGET).md: $(FILTERED)
 # 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(TABLES) $(WAVEPNG) $(BITPNG)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG)
 	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
-tables: $(TABLES)
-$(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
-	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
+# tables: $(TABLES)
+# $(TARGETDIR)/%.tmd: $(DATADIR)/%.csv
+# 	$(PYTHON) $(CSV2TABLE) --file $< --out $@ --delimiter ','
 
 wavedrom: $(WAVEDIR) $(WAVEPNG)
 $(IMAGEDIR)/$(WAVEDIR)/%.png: $(TARGETDIR)/%.wavejson
