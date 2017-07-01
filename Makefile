@@ -28,6 +28,7 @@ TARGETDIR:= Out
 IMAGEDIR:= images
 WAVEDIR:= waves
 BITDIR:= bitfields
+BIT16DIR:= bitfield16
 
 INPUT:= TITLE.md
 TARGET = TARGET
@@ -45,6 +46,9 @@ WAVEPNG:= $(WAVEYAML:%.yaml=$(IMAGEDIR)/$(WAVEDIR)/%.png)
 BITYAML:= $(shell cd $(DATADIR)/$(BITDIR); ls *.yaml)
 BITJSON:= $(BITYAML:%.yaml=$(TARGETDIR)/%.bitjson)
 BITPNG:=  $(BITYAML:%.yaml=$(IMAGEDIR)/$(BITDIR)/%.png)
+BIT16YAML:= $(shell cd $(DATADIR)/$(BIT16DIR); ls *.yaml)
+BIT16JSON:= $(BIT16YAML:%.yaml=$(TARGETDIR)/%.bit16json)
+BIT16PNG:=  $(BIT16YAML:%.yaml=$(IMAGEDIR)/$(BIT16DIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
@@ -92,7 +96,7 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 # 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG)
 	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
 # tables: $(TABLES)
@@ -107,19 +111,28 @@ else
 	touch $@
 endif
 
-bitfield: $(BITDIR) $(BITPNG)
+bitfield: $(BITDIR) $(BITPNG) $(BIT16PNG)
 $(IMAGEDIR)/$(BITDIR)/%.png: $(TARGETDIR)/%.bitjson
 	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 8 \
 	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
 	$(RSVG) $<.svg --format=png --output=$@
 
-yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON)
+$(IMAGEDIR)/$(BIT16DIR)/%.png: $(TARGETDIR)/%.bit16json
+	$(BITFIELD) --input $< --vspace 80 --hspace 640 --lanes 1 --bits 16 \
+	--fontfamily "source code pro" --fontsize 16 --fontweight normal> $<.svg
+	$(RSVG) $<.svg --format=png --output=$@
+
+yaml2json: $(WAVEDIR) $(BITDIR) $(WAVEJSON) $(BITJSON) $(BIT16JSON)
 $(TARGETDIR)/%.wavejson: $(DATADIR)/$(WAVEDIR)/%.yaml
 	if [ ! -e $(IMAGEDIR)/$(WAVEDIR) ]; then mkdir -p $(IMAGEDIR)/$(WAVEDIR); fi
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
 $(TARGETDIR)/%.bitjson: $(DATADIR)/$(BITDIR)/%.yaml
 	if [ ! -e $(IMAGEDIR)/$(BITDIR) ]; then mkdir -p $(IMAGEDIR)/$(BITDIR); fi
+	$(PYTHON) $(PYWAVEOPTS) < $< > $@
+
+$(TARGETDIR)/%.bit16json: $(DATADIR)/$(BIT16DIR)/%.yaml
+	if [ ! -e $(IMAGEDIR)/$(BIT16DIR) ]; then mkdir -p $(IMAGEDIR)/$(BIT16DIR); fi
 	$(PYTHON) $(PYWAVEOPTS) < $< > $@
 
 $(TARGETDIR):
@@ -134,8 +147,11 @@ $(WAVEDIR):
 	mkdir -p $(IMAGEDIR)/$(WAVEDIR)
 $(BITDIR):
 	mkdir -p $(IMAGEDIR)/$(BITDIR)
+$(BIT16DIR):
+	mkdir -p $(IMAGEDIR)/$(BIT16DIR)
 
 clean: $(TARGETDIR)
 	rm -rf $(TARGETDIR)/*
 	rm -rf $(IMAGEDIR)/$(WAVEDIR)/
 	rm -rf $(IMAGEDIR)/$(BITDIR)/
+	rm -rf $(IMAGEDIR)/$(BIT16DIR)/

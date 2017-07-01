@@ -1,0 +1,14 @@
+- bits: 10
+  name: DUMMY
+- bits: 1
+  name: M5
+- bits: 1
+  name: M4
+- bits: 1
+  name: M3
+- bits: 1
+  name: M2
+- bits: 1
+  name: M1
+- bits: 1
+  name: M0
