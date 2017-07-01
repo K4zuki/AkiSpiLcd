@@ -1,5 +1,5 @@
 - bits: 10
-  name: DUMMY
+  name: AG9..0
 - bits: 1
   name: M5
 - bits: 1
@@ -10,5 +10,6 @@
   name: M2
 - bits: 1
   name: M1
+  attr: inv
 - bits: 1
   name: M0
