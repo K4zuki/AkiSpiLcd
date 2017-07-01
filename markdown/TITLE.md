@@ -67,7 +67,11 @@ PICマイコンと液晶搭載部分が一体になっていました。しか�
 この文書で対象とする液晶モジュールは前述の秋月電子で販売中のものと、Mouserで
 入手できるもの[^08]の2品種のみとします。最近スイッチサイエンスで販売しだした
 カラータイプはどうやらピン互換のようですが電源電圧が異なるので基板側に改造が
-必要になると思いますし、とりあえず対象外にします。[^09]
+必要になると思います。**とか言ってたけど気になったので専用に基板設計しました。
+mbedライブラリの移植も含め、最後の章に追記しました。**
+<!-- 拡張中です。
+ https://github.com/K4zuki/SsciSpiLcd です。 -->
+
 
 <#include "1.0_BoardDesign.md">
 <#include "2.0_mbedAPI.md">
@@ -83,5 +87,3 @@ PICマイコンと液晶搭載部分が一体になっていました。しか�
 [^06]: https://www.switch-science.com/catalog/2407/
 [^07]: https://github.com/K4zuki/AkiSpiLcd
 [^08]: http://www.mouser.com/ProductDetail/Sharp-Microelectronics/LS027B7DH01A/
-[^09]: とか言ってたけど気になったので基板設計しちゃいました =>
- https://github.com/K4zuki/SsciSpiLcd です。mbedライブラリも拡張中です。
