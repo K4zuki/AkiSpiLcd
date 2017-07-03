@@ -51,6 +51,8 @@ BIT16JSON:= $(BIT16YAML:%.yaml=$(TARGETDIR)/%.bit16json)
 BIT16PNG:=  $(BIT16YAML:%.yaml=$(IMAGEDIR)/$(BIT16DIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
+MFILTDIR:= mermaid-filter
+
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
@@ -96,7 +98,7 @@ $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
 # 	cat $(FILTERED) > $(TARGETDIR)/$(TARGET).md
 
 filtered: $(FILTERED)
-$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG)
+$(FILTERED): $(MDDIR)/$(INPUT) $(MARKDOWN) $(WAVEPNG) $(BITPNG) $(BIT16PNG) $(MFILTDIR)
 	$(GPP) $(GPPFLAGS) $< | $(PYTHON) $(FILTER) --mode tex --out $@
 
 # tables: $(TABLES)
@@ -149,9 +151,12 @@ $(BITDIR):
 	mkdir -p $(IMAGEDIR)/$(BITDIR)
 $(BIT16DIR):
 	mkdir -p $(IMAGEDIR)/$(BIT16DIR)
+$(MFILTDIR):
+	mkdir -p $(IMAGEDIR)/$(MFILTDIR)
 
 clean: $(TARGETDIR)
 	rm -rf $(TARGETDIR)/*
 	rm -rf $(IMAGEDIR)/$(WAVEDIR)/
 	rm -rf $(IMAGEDIR)/$(BITDIR)/
 	rm -rf $(IMAGEDIR)/$(BIT16DIR)/
+	rm -rf $(IMAGEDIR)/$(MFILTDIR)/
