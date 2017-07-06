@@ -8,7 +8,7 @@
   name: "d"
   attr: M4
 - bits: 1
-  name: "d"
+  name: L
   attr: M3
 - bits: 1
   name: H
