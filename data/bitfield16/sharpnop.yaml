@@ -1,0 +1,10 @@
+- bits: 13
+- bits: 1
+  name: L
+  attr: M2
+- bits: 1
+  name: ＊
+  attr: M1
+- bits: 1
+  name: L
+  attr: M0
