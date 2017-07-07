@@ -1,11 +1,8 @@
 - bits: 10
-  name: "d"
   attr: AG9..0
 - bits: 1
-  name: "d"
   attr: M5
 - bits: 1
-  name: "d"
   attr: M4
 - bits: 1
   name: L
@@ -14,7 +11,6 @@
   name: H
   attr: M2
 - bits: 1
-  name: "*"
   attr: M1
 - bits: 1
   name: H

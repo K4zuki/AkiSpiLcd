@@ -10,6 +10,5 @@
   name: M2
 - bits: 1
   name: M1
-  attr: inv
 - bits: 1
   name: M0
