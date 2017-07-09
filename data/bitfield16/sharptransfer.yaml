@@ -1,4 +1,5 @@
 - bits: 8
+  name: Line number
   attr: GENERAL PURPOSE
 - bits: 5
   attr: DUMMY
