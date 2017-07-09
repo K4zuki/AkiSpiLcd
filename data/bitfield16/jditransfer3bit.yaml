@@ -1,0 +1,21 @@
+- bits: 8
+  name: Line number
+  attr: AG7..0
+- bits: 2
+  attr: AG9..8
+- bits: 1
+  attr: M5
+- bits: 1
+  name: L
+  attr: M4
+- bits: 1
+  name: L
+  attr: M3
+- bits: 1
+  name: L
+  attr: M2
+- bits: 1
+  attr: M1
+- bits: 1
+  name: H
+  attr: M0
