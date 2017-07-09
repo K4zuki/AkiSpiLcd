@@ -1,7 +1,7 @@
 - bits: 8
-  attr: GENERAL PURPOSE
+  attr: General purpose
 - bits: 5
-  attr: DUMMY
+  attr: Dummy
 - bits: 1
   name: L
   attr: M2
