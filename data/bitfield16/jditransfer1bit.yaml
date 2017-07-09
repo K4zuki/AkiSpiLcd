@@ -1,5 +1,5 @@
 - bits: 8
-  name: Line number
+  name: Line number 1-176
   attr: AG7..0
 - bits: 2
   attr: AG9..8

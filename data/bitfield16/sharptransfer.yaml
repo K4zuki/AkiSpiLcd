@@ -1,5 +1,5 @@
 - bits: 8
-  name: Line number
+  name: Reverse ordered line number 0-240
   attr: General purpose
 - bits: 5
   attr: Dummy
