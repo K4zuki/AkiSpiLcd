@@ -1,6 +1,6 @@
 - bits: 8
-  name: Reverse ordered line number 0-240
-  attr: General purpose
+  name: Address[0..7]
+  attr: Reverse ordered line number 0-240
 - bits: 5
   attr: Dummy
 - bits: 1

@@ -1,5 +1,5 @@
 - bits: 5
-  attr: DUMMY
+  attr: Dummy
 - bits: 1
   name: M0
 - bits: 1
