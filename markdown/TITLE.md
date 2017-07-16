@@ -53,8 +53,8 @@ front: "images/AkiSpiLcd-V2.1-brd-gray.png"
 PICマイコンと液晶搭載部分が一体になっていました。しかしこれでは液晶の動作確認
 はできますが応用・流用しづらいので筆者も2014年にArduinoシールド形状の基板を
 試作[^04]し、2014年のOgakiMiniMakerFaireで販売もしました。その後
-マルツさん[^05]とスイッチサイエンスさん[^06]で通販を始めた際に現在の設計に
-変更しました。
+マルツさんとスイッチサイエンスさんで通販を始めた際に現在の設計に
+変更しました。[^05] [^06]
 
 ![Ogaki Mini Maker Faire (2014) 出展時の写真](images/OMMF2014.jpg){width=80%}
 
@@ -83,7 +83,7 @@ mbedライブラリの移植も含め、最後の章に追記しました。**
 [^02]: 信号は3V系推奨らしいです
 [^03]: http://akizukidenshi.com/catalog/g/gK-06875/
 [^04]: フレキを通すために削った部分の幅が狭くて加工が必要だった。
-[^05]: Thttp://www.marutsu.co.jp/pc/i/259032/
+[^05]: http://www.marutsu.co.jp/pc/i/259032/
 [^06]: https://www.switch-science.com/catalog/2407/
 [^07]: https://github.com/K4zuki/AkiSpiLcd
 [^08]: http://www.mouser.com/ProductDetail/Sharp-Microelectronics/LS027B7DH01A/
