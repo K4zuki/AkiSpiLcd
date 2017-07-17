@@ -22,10 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "MemoryLcd.h"
 
-MemoryLCD::MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl)
-    : _spi(mosi, miso, sck), _csl(csl) {
-  _spi.format(8, 0);
-  _spi.frequency(1000000);
+MemoryLCD::MemoryLCD(PinName mosi, PinName miso, PinName sck, PinName csl) : _spi(mosi, miso, sck), _csl(csl) {
+    _spi.format(8, 0);
+    _spi.frequency(1000000);
 }
 //
 // void MemoryLCD::cls() {
