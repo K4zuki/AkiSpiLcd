@@ -10,6 +10,8 @@ WAVEDROM = $(HOME)/AppData/Roaming/npm/wavedrom
 PANTABLE = C:/Python27/Scripts/pantable.exe
 RSVG = $(HOME)/rsvg-convert/rsvg-convert.exe
 GPP =
+PUML =
+PUMLFILTER =
 else
 CABAL = $(HOME)/.cabal
 EXE =
@@ -20,11 +22,15 @@ FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
 MFILTER = /usr/local/bin/mermaid-filter
 GPP = /usr/bin/gpp
+PUML =
+PUMLFILTER =
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
 MFILTER = $(HOME)/.nodebrew/current/bin/mermaid-filter
 GPP = /usr/local/bin/gpp
+PUML = /usr/local/bin/plantuml
+PUMLFILTER = $(HOME)/.nodebrew/current/bin/pandoc-plantuml-filter
 endif
 endif
 PCROSSREF = $(CABAL)/bin/pandoc-crossref$(EXE)
@@ -47,6 +53,7 @@ PANFLAGS += --filter=$(MISC)/panflute/rotateimg.py
 PANFLAGS += --filter=$(MFILTER)
 PANFLAGS += --filter=$(PANTABLE)
 PANFLAGS += --filter=$(PCROSSREF)
+PANFLAGS += --filter=$(PUMLFILTER)
 PANFLAGS += --toc
 PANFLAGS += --listings
 PANFLAGS += --number-sections --highlight-style=pygments
