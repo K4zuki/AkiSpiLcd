@@ -22,8 +22,8 @@ FONTDIR = "ExternalLocation = $(HOME)/.local/share/fonts/"
 WAVEDROM = /usr/local/bin/wavedrom
 MFILTER = /usr/local/bin/mermaid-filter
 GPP = /usr/bin/gpp
-PUML =
-PUMLFILTER =
+PUML = $(HOME)/bin/plantuml
+PUMLFILTER = /usr/local/bin/pandoc-plantuml-filter
 else
 FONTDIR = "ExternalLocation = /usr/local/texlive/2015basic/texmf-local/"
 WAVEDROM = $(HOME)/.nodebrew/current/bin/wavedrom
