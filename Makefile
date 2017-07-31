@@ -52,7 +52,7 @@ BIT16PNG:=  $(BIT16YAML:%.yaml=$(IMAGEDIR)/$(BIT16DIR)/%.png)
 # rsvg-convert alpha.svg --format=png --output=sample_rsvg.png
 
 MFILTDIR:= mermaid-filter
-
+IMAGINEDIR:= pd-images
 FILTERED= $(INPUT:%.md=$(TARGETDIR)/%.md)
 HTML:=$(TARGETDIR)/$(TARGET).html
 DOCX:=$(TARGETDIR)/$(TARGET).docx
@@ -82,12 +82,16 @@ pdf: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(TARGET).tex
 	xelatex $(TARGET).tex
 
 
-linking: $(TARGETDIR)/$(IMAGEDIR)
+linking: $(TARGETDIR)/$(IMAGEDIR) $(TARGETDIR)/$(IMAGINEDIR)
 $(TARGETDIR)/$(IMAGEDIR):
 	rm -f $(TARGETDIR)/$(IMAGEDIR); \
 	cd $(TARGETDIR);\
-	ln -s ../$(IMAGEDIR);\
-	ln -s ../pd-images
+	ln -s ../$(IMAGEDIR)
+
+$(TARGETDIR)/$(IMAGINEDIR):
+	rm -f $(TARGETDIR)/$(IMAGINEDIR); \
+	cd $(TARGETDIR);\
+	ln -s ../$(IMAGINEDIR)
 
 tex: $(TARGETDIR)/$(TARGET).tex
 $(TARGETDIR)/$(TARGET).tex: $(FILTERED)
