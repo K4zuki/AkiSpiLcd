@@ -5,16 +5,16 @@ PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 include $(MISC)/Makefile.in
 
-MDDIR:= markdown
-DATADIR:= data
-TARGETDIR:= Out
-IMAGEDIR:= images
-WAVEDIR:= waves
-BITDIR:= bitfields
-BIT16DIR:= bitfield16
-MFILTDIR:= mermaid-filter
+# MDDIR:= markdown
+# DATADIR:= data
+# TARGETDIR:= Out
+# IMAGEDIR:= images
+# WAVEDIR:= waves
+# BITDIR:= bitfields
+# BIT16DIR:= bitfield16
+# MFILTDIR:= mermaid-filter
 
-INPUT:= TITLE.md
-TARGET:= TARGET
+# INPUT:= TITLE.md
+TARGET:= AkiSpiLcd
 
 include $(MISC)/Makefile
