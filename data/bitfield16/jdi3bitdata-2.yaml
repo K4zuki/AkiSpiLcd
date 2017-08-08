@@ -1,0 +1,12 @@
+- bits: 2
+  name: (R-G)
+- bits: 3
+  name: (R-G-B)
+- bits: 3
+  name: (R-G-B)
+- bits: 3
+  name: (R-G-B)
+- bits: 3
+  name: (R-G-B)
+- bits: 2
+  name: (G-B)
