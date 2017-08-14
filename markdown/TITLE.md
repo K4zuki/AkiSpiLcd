@@ -8,22 +8,11 @@ comiket: "C92"
 year: "2017"
 publisher: "キンコーズオンラインで印刷製本・秋葉原店で受け取り"
 docrevision: "2.0"
-short-hash: (git short hash)
+# short-hash: override by command
 printer: false
 
 documentclass: book
-papersize: b5paper
-mainfont: RictyDiminished-Regular
-sansfont: RictyDiminished-Regular
-monofont: RictyDiminished-Regular
-mainlang: Japanese
-CJKoptions: BoldFont=RictyDiminished-Bold,
-  ItalicFont=RictyDiminished-Oblique,
-  BoldItalicFont=RictyDiminished-BoldOblique
-CJKmainfont: RictyDiminished-Regular
-CJKsansfont: RictyDiminished-Regular
-CJKmonofont: RictyDiminished-Regular
-geometry: top=30truemm,bottom=30truemm,left=20truemm,right=20truemm
+
 keywords: keyword
 secPrefix: Chapter
 linkcolor: black
