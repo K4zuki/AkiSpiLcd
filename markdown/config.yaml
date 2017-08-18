@@ -8,20 +8,5 @@ comiket: "技術書典３"
 year: "2017"
 publisher: "キンコーズオンラインで印刷製本・秋葉原店で受け取り"
 docrevision: "2.1"
-# short-hash: override by command
-printer: false
-
-documentclass: book
-
-keywords: keyword
-secPrefix: Chapter
-linkcolor: black
-urlcolor: black
-citecolor: black
-chapter: true
-listings: true
-codeBlockCaptions: true
-listingTitle: 'List'
-listingTemplate: '---**$$listingTitle$$ $$i$$$$titleDelim$$ $$t$$**---'
 front: "images/AkiSpiLcd-V2.1-brd-gray.png"
 ---
