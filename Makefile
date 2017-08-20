@@ -4,6 +4,7 @@ endif
 PANSTYLES= $(HOME)/.pandoc
 MISC= $(PANSTYLES)/pandoc_misc
 include $(MISC)/Makefile.in
+PROJECT= `pwd`
 
 # MDDIR:= markdown
 # DATADIR:= data
